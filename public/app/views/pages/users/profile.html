@@ -1,0 +1,39 @@
+<style type="text/css">
+  .searchCon{
+    height: 10px;
+    width:300px;
+    float: left;
+  }
+  .tdtd{
+    font-family: Lato ;
+  }
+  .thth{
+    font-family: Josefin Slab;
+  }
+</style>
+<div class="container-fluid">
+  <div class="panel panel-primary">
+  	<div class="panel-heading">
+  		<h3><strong>{{main.police_name}}</strong></h3>
+  	</div>
+  </div>
+  <br>
+      <table class="table table-bordered table-responsive-md">
+        <thead class="yellow lighten-3">
+          <tr>
+            <td class="tdtd"><strong>Username</strong></td>
+            <td class="tdtd"><strong>Email Address</strong></td>
+            <td class="tdtd"><strong>Police Station</strong></td>
+            <td class="tdtd"><strong>User Type</strong></td>
+            <td class="tdtd"><strong>Password</strong></td>
+          </tr>
+        </thead>
+          <tr>
+            <td class="tdtd">{{ main.police_username }}</td>
+            <td class="tdtd">{{ main.police_email }}</td>
+            <td class="tdtd">{{ main.police_station }}</td>
+            <td class="tdtd">{{ main.police_permission }}</td>
+            <td class="tdtd">****************</td>
+          </tr>
+      </table>
+</div>
