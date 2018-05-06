@@ -15,17 +15,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
     .when('/about', {
         templateUrl: 'app/views/pages/about.html'
     })
-    // Route: About Us (for testing purposes)
-    .when('/sample', {
-        templateUrl: 'app/views/pages/generateReports.html'
-    })
 
-    // Route: User Registration
-    .when('/register', {
-        templateUrl: 'app/views/pages/users/register.html',
-        controller: 'regCtrl',
-        controllerAs: 'register',
-        authenticated: true
+    // Route: Manage User Accounts
+    .when('/dataManagement', {
+        templateUrl: 'app/views/pages/management/dataManagement.html',
+        controller: 'dataManagementCtrl',
+        controllerAs: 'dataManagement',
+        authenticated: true,
+        police_permission: ['main']
     })
 
     // Route: User Login

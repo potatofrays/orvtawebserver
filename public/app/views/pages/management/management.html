@@ -1,52 +1,18 @@
 <link rel="stylesheet" href="assets/css/compiled.min.css" type="text/css" >
 <link rel="stylesheet" href="assets/css/style2.css" type="text/css" >
 <script src="assets/js/bootstrap-confirmation.min.js"></script>
-<style type="text/css">
-  .searchCon{
-    height: 10px;
-    width:300px;
-    float: left;
-  }
-  .left{
-    float:left;
-    height: auto;
-    width:320px;
-    margin-left: 10px;
-  }
-  .right{
-      float:right;
-      height: auto;
-      width:320px;
-      margin-right: 10px;
-  }
-  .tdtd{
-    font-family: Lato ;
-  }
-  .thth{
-    font-family: Josefin Slab;
-  }
-  .decor{
-    list-style: none;
-  }
-</style>
-
-<script>
-$('[data-toggle=confirmation]').confirmation({
-  rootSelector: '[data-toggle=confirmation]',
-  // other options
-});</script>
 
 <div class="container-fluid">
   <div class="panel panel-primary">
   	<div class="panel-heading">
-  		<center><h2 style="font-family: Courier New; "><strong>USER MANAGEMENT</strong></h2></center><br>
+  		<br><center><h2 style="font-family: Courier New; "><strong>USER MANAGEMENT</strong></h2></center><br>
   	</div>
   </div>
     <div class="md-form form-sm">
           <!--Search-->
           <div class="searchCon">
             <i class="fa fa-search prefix"></i>
-            <input type="text" ng-model="searchKeyword" id="formSearch" class="tdtd" >
+            <input type="text" ng-model="searchKeyword" id="formSearch" style="font-family: Courier New; font-size: 16px;" >
             <label class="tdtd" for="formSearch">SEARCH</label>
           </div>
           <button title='Search Police User' class="btn btn-info mb-1 search btn-red btn-sm px-2" title='Search Police User' ng-click="management.search(searchKeyword, number);">COUNT <i class="fa fa-check ml-1"></i></button>
@@ -56,14 +22,14 @@ $('[data-toggle=confirmation]').confirmation({
           <button type="button" title='Add New Police User' class="btn btn-elegant btn-sm px-2" data-toggle="modal" title='Add Police User' data-target="#modalAddPolice" style="float: right;">POLICE REGISTRATION</button>
         </div>
     <!--Modal for Police Registration-->
-    <div ng-controller="regCtrl as register" class="modal fade big" id="modalAddPolice" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div ng-controller="managementCtrl as register" class="modal fade big" id="modalAddPolice" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
        <div class="modal-dialog cascading-modal modal-lg" role="document">
            <!--Content-->
            <div class="modal-content">
                <!--Header-->
                <div class="modal-header grey darken-2 white-text">
                    <h5 class="title"><i class="fa fa-user-plus"></i> Police Registration</h5>
-                   <button type="button" class="close waves-effect waves-light" data-dismiss="modal"  onclick="javascript:window.location.reload()" aria-label="Close">
+                   <button type="button" class="close waves-effect waves-light" data-dismiss="modal" onclick="javascript:window.location.reload()" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                    </button>
                </div>
@@ -303,11 +269,14 @@ $('[data-toggle=confirmation]').confirmation({
     <div class="alert alert-danger center-block">{{ management.showMoreError}}</div>
   </div>
   <div class="md-form" ng-show="searchFilter !== undefined">
-    <p><strong>Total results: </strong>{{ (management.police_users | filter: searchKeyword).length }} &nbsp; &nbsp;<strong>Showing: </strong>{{ (management.police_users | filter: searchFilter | limitTo: management.limit).length  }}</p>
+    <p style="font-family: Courier New;"><strong>Total results: </strong>{{ (management.police_users | filter: searchKeyword).length }} &nbsp; &nbsp;<strong>Showing: </strong>{{ (management.police_users | filter: searchFilter | limitTo: management.limit).length  }}</p>
   </div>
+  <div class="card">
+  <div class="card-body">
+  <div class="table1">
   <!-- Table Management -->
-	<table class="table table-bordered table-responsive-md overflow-auto">
-  <thead  class="yellow lighten-4">
+	<table class="table table-bordered table-striped table-responsive-sm table-fixed">
+  <thead class="yellow lighten-5">
 		<tr>
 			<th class="thth"><b>Name</b></th>
 			<th class="thth"><b>Email</b></th>
@@ -332,7 +301,7 @@ $('[data-toggle=confirmation]').confirmation({
       <td class="tdtd" style="color: blue;">{{ person.police_station}}</td>
       <td class="tdtd" style="color: red;">{{ person.police_permission }}</td>
       <td class="tdtd">{{ person.police_createdAt | date:'MMM d y h: mma' }}</td>
-      <td class="tdtd">{{ person.police_updatedAt | date: 'MMM d y h: mma' }}</td><hr>
+      <td class="tdtd">{{ person.police_updatedAt | date: 'MMM d y h: mma' }}</td>
 			<td class="tdtd">
 				<a href="/edit2/{{ person._id }}">
 					<button type="button" ng-show="management.editAccess" title='Edit Police User' class="btn btn-info btn-grey btn-sm px-3">Edit</button>
@@ -343,4 +312,8 @@ $('[data-toggle=confirmation]').confirmation({
 			</td>
 		</tr>
 	</table>
+</div>
+</div>
+</div>
+<br>
 </div>

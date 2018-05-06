@@ -9,13 +9,14 @@
 }
 .decor{
   list-style: none;
+  font-family: Courier New;
 }
 </style>
 
 <div class="container-fluid">
   <div align="center">
   <a href="/reportManagement" style="float: right; padding-left: 70%; color: grey;" class="thth"><i class="fa fa-arrow-left" aria-hidden="true"  onclick="javascript:window.location.reload()"></i>&nbsp;Back to Reports</a><br>
-  <h3><strong><b>EDIT PEOPLE INVOLVED DETAILS</b></strong></h3><hr style="height:45px; color: red;">
+  <h3 style="font-family: Courier New;"><strong><b>EDIT PEOPLE INVOLVED DETAILS</b></strong></h3><hr style="height:45px; color: red;">
 
   <div class="show-hide-message" ng-show="editPeopleInvolved.successMsg">
    <div class="alert alert-success center-block">{{editPeopleInvolved.successMsg}}</div>
@@ -53,13 +54,12 @@
       <option value="Male">Male</option>
       <option value="Female">Female</option>
     </select>
-    <select class="browser-default form-control col-7 tdtd" title='Select Violation' ng-model="addViolation">
-      <option value="" disabled selected>Select Violation</option>
-      <option value="Negligence">Negligence</option>
-      <option value="Recklessness or wanton conduct">Recklessness or wanton conduct</option>
-      <option value="Intentional Misconduct">Intentional Misconduct</option>
-      <option value="Strict Liability">Strict Liability (Regardless or Fault)</option>
-    </select>
+    <div ng-controller="dataManagementCtrl as dataManagement">
+     <select id="vioChoices" class="browser-default form-control col-7 tdtd" placeholder="Select Violation" ng-model="addViolation">
+       <option value="" disabled selected>Select Violation</option>
+       <option ng-repeat="violation in dataManagement.violations" value="{{violation.violation_committed}}">{{violation.violation_committed}}</option>
+     </select>
+   </div>
     <select class="browser-default form-control col-7 tdtd" title='Select Status' ng-model="addStatus">
       <option value="" disabled selected>Select Status</option>
       <option value="Unharmed">Unharmed</option>

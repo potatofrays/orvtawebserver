@@ -1,6 +1,7 @@
 // Creates the addCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
-var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
-addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice){
+angular.module('addCtrl', ['geolocation', 'gservice'])
+
+.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice){
     // Initializes Variables
     // ----------------------------------------------------------------------------
     $scope.formData = {};
@@ -63,7 +64,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
 
     $scope.formData.longitude = parseFloat(result.geometry.location.lng()).toFixed(3);
     $scope.formData.latitude = parseFloat(result.geometry.location.lat()).toFixed(3);
-}
+  }
 
     //getting the coordinates for the inserted address
     function getLatitudeLongitude(callback, address ) {
@@ -83,6 +84,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             });
         }
     }
+
 
     var button = document.getElementById('btn');
 
@@ -131,7 +133,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             peopleObject.people_involved_age = $scope.addAge;
             peopleObject.people_involved_citizenship = $scope.addCitizenship;
             peopleObject.people_involved_gender = $scope.addGender;
-            peopleObject.people_involved_violation = $scope.addViolation;
+            peopleObject.people_involved_violation = document.getElementById('vioChoices').value;
             peopleObject.people_involved_status = $scope.addStatus;
             peopleObject.people_involved_type = $scope.addType;
 
@@ -151,9 +153,10 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
         var vehicleObj = {};
         vehicleObj._id = $scope.showIdVehicle;
         vehicleObj.vehicle_platenumber = $scope.addPlatenumber;
-        vehicleObj.vehicle_type = $scope.addVehicleType;
+        vehicleObj.vehicle_involved_type = document.getElementById('choices').value;
         vehicleObj.vehicle_brand = $scope.addBrand;
         vehicleObj.vehicle_model = $scope.addModel;
+        vehicleObj.vehicle_driver = $scope.addDriver;
 
         $http.put('/addVehicle', vehicleObj)
         .success(function(data){
@@ -161,6 +164,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             $scope.addVehicleType = "";
             $scope.addBrand = "";
             $scope.addModel = ""
+            $scope.addDriver = ""
 
         });
     }

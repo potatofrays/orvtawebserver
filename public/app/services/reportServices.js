@@ -3,26 +3,47 @@ angular.module('reportServices', [])
 .factory('Report', function($http) {
     var reportFactory = {}; // Create the reportFactory object
 
-
+    reportFactory.create = function(violationData) {
+        return $http.post('/api/violations', violationData);
+    };
+    reportFactory.createVehicleType = function(vehicleData) {
+        return $http.post('/api/vehicles', vehicleData);
+    };
+    // Delete a user
+    reportFactory.deleteViolation = function(violation_committed) {
+        return $http.delete('/api/violationdataManagement/' + violation_committed);
+    };
+    // Delete a user
+    reportFactory.deleteVehicle = function(vehicle_type) {
+        return $http.delete('/api/vehicledataManagement/' + vehicle_type);
+    };
     reportFactory.getFind = function(){
         return $http.get('/api/findReport/');
     };
-    //get info
-   reportFactory.getReports = function(id){
-       return $http.get('/api/editReport2/' +id);
-   }
-   //edit
-   reportFactory.reportChanges = function(id){
-       return $http.put('/api/editReport2', id);
-   }
-   //get info
-  reportFactory.getReports = function(id){
-      return $http.get('/api/editReport/' +id);
-  }
-  //edit
-  reportFactory.citizenReportChanges = function(id){
-      return $http.put('/api/editReport', id);
-  }
+
+    reportFactory.getViolationsData = function(){
+        return $http.get('/api/violationdataManagement/');
+    };
+
+    reportFactory.getVehicleTypesData = function(){
+        return $http.get('/api/vehicledataManagement/');
+    };
+  //get info
+     reportFactory.getReports = function(id){
+         return $http.get('/api/editReport2/' +id);
+     }
+     //edit
+     reportFactory.reportChanges = function(id){
+         return $http.put('/api/editReport2', id);
+     }
+     //get info
+    reportFactory.getReports = function(id){
+        return $http.get('/api/editReport/' +id);
+    }
+    //edit
+    reportFactory.citizenReportChanges = function(id){
+        return $http.put('/api/editReport', id);
+    }
     // Get people involved to then edit
     reportFactory.getPeopleInvolved = function(id) {
         return $http.get('/api/editPeopleInvolved/' + id);

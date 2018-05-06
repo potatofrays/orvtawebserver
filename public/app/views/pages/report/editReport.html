@@ -9,6 +9,7 @@
 }
 .decor{
   list-style: none;
+  font-family: Courier New;
 }
 
 </style>
@@ -16,7 +17,7 @@
   <div align="center">
   <a href="/citizenReportManagement" style="float: right; color: grey; padding-left: 70%;" class="thth"><i class="fa fa-arrow-left" aria-hidden="true"  onclick="javascript:window.location.reload()"></i>&nbsp;All Citizen Reports</a><br>
   <a href="/reportManagement" style="float: right; padding-left: 70%;color: grey; " class="thth"><i class="fa fa-arrow-left" aria-hidden="true"  onclick="javascript:window.location.reload()"></i>&nbsp;All Reports</a><br>
-  <h3><strong><b>EDIT CITIZEN REPORTS</b></strong></h3><hr style="height:40px; color: red;">
+  <h3 style="font-family: Courier New;"><strong><b>EDIT CITIZEN REPORTS</b></strong></h3><hr style="height:40px; color: red;">
 
     <div class="show-hide-message" ng-show="editReport.successMsg">
      <div class="alert alert-success center-block">{{editReport.successMsg}}</div>
@@ -117,13 +118,12 @@
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
               </select>
-              <select class="browser-default form-control" ng-model="addViolation">
-                  <option value="" disabled selected>Select Violation</option>
-                  <option value="Negligence">Negligence</option>
-                  <option value="Recklessness or wanton conduct">Recklessness or wanton conduct</option>
-                  <option value="Intentional Misconduct">Intentional Misconduct</option>
-                  <option value="Strict Liability">Strict Liability (Regardless or Fault)</option>
-              </select>
+              <div ng-controller="dataManagementCtrl as dataManagement">
+               <select id="vioChoices" class="browser-default form-control" placeholder="Select Violation" ng-model="addViolation">
+                 <option value="" disabled selected>Select Violation</option>
+                 <option ng-repeat="violation in dataManagement.violations" value="{{violation.violation_committed}}">{{violation.violation_committed}}</option>
+               </select>
+             </div>
                 <select class="browser-default form-control" ng-model="addStatus">
                   <option value="" disabled selected>Select Status</option>
                   <option value="Unharmed">Unharmed</option>
@@ -156,17 +156,12 @@
         <div class="modal-body">
           <form name= "editReport.formData">
             <input type="hidden" ng-model="showIdVehicle" readonly>
-            <input list="vehicleTypes" name="vehicleType" ng-model="addVehicleType" class="form-control">
-             <datalist id="vehicleTypes">
-               <option value="Bus">Bus</option>
-               <option value="Bicycle">Bicycle</option>
-               <option value="Car">Car</option>
-               <option value="Jeep">Jeep</option>
-               <option value="Motorcycle">Motorcycle</option>
-               <option value="Tricycle">Tricycle</option>
-               <option value="Truck">Truck</option>
-               <option value="Van">Van</option>
-             </datalist>
+            <div ng-controller="dataManagementCtrl as dataManagement">
+             <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" ng-model="addVehicleType">
+                <option value="" disabled selected>Select Vehicle Type</option>
+               <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
+             </select>
+           </div>
             <div class="md-form">
             <input class="form-control" type=" text" name="vehicle_platenumber" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber" placeholder=" Plate Number" style="padding-left: 10px;">
             <ul ng-show="(!editReport.formData.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.pattern) || (!editReport.formData.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
@@ -178,7 +173,7 @@
             <input class="form-control" title='Brand' type=" text" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
             <input class="form-control" title='Model' type=" text" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
             <input class="form-control" title='Driver' type=" text" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
-            <button type="submit" class="btn btn-md btn-elegant px-2" ng-click="editReport.addVehicle(addPlateNumber, editReport.formData.vehicle_platenumber.$valid, addBrand, editReport.formData.vehicle_brand.$valid, addVehicleType, editReport.formData.vehicle_type.$valid, addModel, editReport.formData.vehicle_model.$valid, addDriver, editReport.formData.vehicle_driver.$valid)" style="float: right;">SAVE</button>
+            <button type="submit" class="btn btn-md btn-elegant px-2" ng-click="editReport.addVehicle(addPlateNumber, editReport.formData.vehicle_platenumber.$valid, addBrand, editReport.formData.vehicle_brand.$valid, addVehicleType, editReport.formData.vehicle_involved_type.$valid, addModel, editReport.formData.vehicle_model.$valid, addDriver, editReport.formData.vehicle_driver.$valid)" style="float: right;">SAVE</button>
             </form>
         </div>
       </div>

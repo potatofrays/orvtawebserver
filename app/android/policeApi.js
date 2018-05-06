@@ -92,10 +92,10 @@ module.exports = function(router){
 
 	//add
 	//route for saving vehicle
-	router.put('/vehicle/:id', function(req,res){
+	router.put('/vehicle_involved/:id', function(req,res){
 		models.Police_Report.findById(req.params.id, function(err, vehicle){
-			var addVehicle = new models.Vehicle();
-				addVehicle.vehicle_type = req.body.vehicle_type;
+			var addVehicle = new models.Vehicle_Involved();
+				addVehicle.vehicle_involved_type = req.body.vehicle_involved_type;
 				addVehicle.vehicle_platenumber = req.body.vehicle_platenumber;
 				addVehicle.vehicle_brand = req.body.vehicle_brand;
 				addVehicle.vehicle_model = req.body.vehicle_model;

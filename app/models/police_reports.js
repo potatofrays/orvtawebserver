@@ -13,12 +13,22 @@ var peopleInvolvedSchema = new Schema({
 });
 
 //vehicle Schema
-var vehicleSchema = new Schema({
+var vehicleInvolvedSchema = new Schema({
 	vehicle_platenumber : {type: String},
-	vehicle_type : {type: String},
+	vehicle_involved_type: {type: String},
 	vehicle_brand: {type: String},
 	vehicle_model : {type: String},
 	vehicle_driver: {type: String}
+
+});
+//vehicle Schema
+var vehicleSchema = new Schema({
+	vehicle_type: {type: String}
+
+});
+//vehicle Schema
+var violationSchema = new Schema({
+	violation_committed: {type: String}
 
 });
 
@@ -47,11 +57,15 @@ policeReport.index({location_coordinates: '2dsphere'});
 
 var Police_Report = mongoose.model('Police_Report', policeReport);
 var People_Involved = mongoose.model('People_Involved', peopleInvolvedSchema);
+var Vehicle_Involved  = mongoose.model('Vehicle_Involved', vehicleInvolvedSchema);
+var Violation  = mongoose.model('Violation', violationSchema);
 var Vehicle  = mongoose.model('Vehicle', vehicleSchema);
 
 
 module.exports = {
 	Police_Report: Police_Report,
 	People_Involved : People_Involved,
-	Vehicle : Vehicle
+	Vehicle_Involved : Vehicle_Involved,
+	Violation: Violation,
+	Vehicle: Vehicle
 }

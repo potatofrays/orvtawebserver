@@ -49,9 +49,9 @@ module.exports = function(app) {
    //add people involved
    app.put('/addVehicle', function(req,res){
        models.Police_Report.findById(req.body._id, function(err, vehicle){
-               var addVehicle = new models.Vehicle();
+               var addVehicle = new models.Vehicle_Involved();
                addVehicle.vehicle_platenumber = req.body.vehicle_platenumber;
-               addVehicle.vehicle_type = req.body.vehicle_type;
+               addVehicle.vehicle_involved_type = req.body.vehicle_involved_type;
                addVehicle.vehicle_brand = req.body.vehicle_brand;
                addVehicle.vehicle_model = req.body.vehicle_model;
                addVehicle.vehicle_driver = req.body.vehicle_driver;

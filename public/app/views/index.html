@@ -82,14 +82,22 @@
               <ul class="collapsible collapsible-accordion" style="margin-top: 85px">
                 <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn" href="/dashboard"><i class=" fa fa-dashboard"></i>Dashboard</a>
                   </li>
-                  <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn && main.authorized" href="/management"><i class="fa fa-user"></i>Police User Management</a>
-                  </li>
-                  <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-folder"></i> Manage Reports<i class="fa fa-angle-down rotate-icon"></i></a>
+                  <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-folder"></i> File Management<i class="fa fa-angle-down rotate-icon"></i></a>
                       <div class="collapsible-body">
                           <ul>
-                              <li><a ng-show="main.isLoggedIn && main.authorized" href="/reportManagement" class="waves-effect">Police Reports</a>
+                              <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn && main.authorized" href="/management"><i class="fa fa-user"></i>Police User Management</a>
                               </li>
-                              <li><a ng-show="main.isLoggedIn && main.authorized" href="/citizenReportManagement" class="waves-effect">Citizen Reports</a>
+                              <li><a ng-show="main.isLoggedIn && !main.requestAccess" href="/dataManagement" class="waves-effect"><i class="fa fa-envelope-square"></i>Data Management</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li><a class="collapsible-header waves-effect arrow-r" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-clipboard" aria-hidden="true"></i> Manage Reports<i class="fa fa-angle-down rotate-icon"></i></a>
+                      <div class="collapsible-body">
+                          <ul>
+                              <li><a ng-show="main.isLoggedIn && main.authorized" href="/reportManagement" class="waves-effect"><i class="fa fa-file-text" aria-hidden="true"></i> Police Reports</a>
+                              </li>
+                              <li><a ng-show="main.isLoggedIn && main.authorized" href="/citizenReportManagement" class="waves-effect"><i class="fa fa-paperclip" aria-hidden="true"></i> Citizen Reports</a>
                               </li>
                           </ul>
                       </div>

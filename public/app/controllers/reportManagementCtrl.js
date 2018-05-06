@@ -222,7 +222,7 @@ angular.module('reportManagementController', ['reportServices'])
             peopleObject.people_involved_age = $scope.addAge;
             peopleObject.people_involved_citizenship = $scope.addCitizenship;
             peopleObject.people_involved_gender = $scope.addGender;
-            peopleObject.people_involved_violation = $scope.addViolation;
+            peopleObject.people_involved_violation = document.getElementById('vioChoices').value;
             peopleObject.people_involved_status = $scope.addStatus;
             peopleObject.people_involved_type = $scope.addType;
 
@@ -246,7 +246,7 @@ angular.module('reportManagementController', ['reportServices'])
             vehicleObject._id = $scope.showId;
             vehicleObject.vehicle_platenumber = $scope.addPlateNumber;
             vehicleObject.vehicle_brand = $scope.addBrand;
-            vehicleObject.vehicle_type = $scope.addVehicleType;
+            vehicleObject.vehicle_involved_type =  document.getElementById('choices').value;
             vehicleObject.vehicle_model = $scope.addModel;
             vehicleObject.vehicle_driver = $scope.addDriver;
 
@@ -333,7 +333,7 @@ angular.module('reportManagementController', ['reportServices'])
             peopleObject.people_involved_age = $scope.addAge;
             peopleObject.people_involved_citizenship = $scope.addCitizenship;
             peopleObject.people_involved_gender = $scope.addGender;
-            peopleObject.people_involved_violation = $scope.addViolation;
+            peopleObject.people_involved_violation = document.getElementById('vioChoices').value;
             peopleObject.people_involved_status = $scope.addStatus;
             peopleObject.people_involved_type = $scope.addType;
 
@@ -357,7 +357,7 @@ angular.module('reportManagementController', ['reportServices'])
             vehicleObject._id = $scope.showId;
             vehicleObject.vehicle_platenumber = $scope.addPlateNumber;
             vehicleObject.vehicle_brand = $scope.addBrand;
-            vehicleObject.vehicle_type = $scope.addVehicleType;
+            vehicleObject.vehicle_involved_type = document.getElementById('choices').value;
             vehicleObject.vehicle_model = $scope.addModel;
             vehicleObject.vehicle_driver = $scope.addDriver;
 
@@ -400,7 +400,7 @@ angular.module('reportManagementController', ['reportServices'])
           peopleObject.people_involved_age = $scope.addAge;
           peopleObject.people_involved_gender = $scope.addGender
           peopleObject.people_involved_citizenship = $scope.addCitizenship;
-          peopleObject.people_involved_violation = $scope.addViolation;
+          peopleObject.people_involved_violation = document.getElementById('vioChoices').value;
           peopleObject.people_involved_status = $scope.addStatus;
           peopleObject.people_involved_type = $scope.addType;
 
@@ -440,7 +440,7 @@ angular.module('reportManagementController', ['reportServices'])
          if (data.data.success) {
              $scope.addPlateNumber = data.data.vehicle.vehicle_platenumber; // Display name in scope
              $scope.addBrand = data.data.vehicle.vehicle_brand; // Display age in scope
-             $scope.addVehicleType = data.data.vehicle.vehicle_type; // Display gender in scope
+             $scope.addVehicleType = data.data.vehicle.vehicle_involved_type; // Display gender in scope
              $scope.addModel = data.data.vehicle.vehicle_model; // Display citizenship in scope
              $scope.addDriver = data.data.vehicle.vehicle_driver; // Display citizenship in scope
              $scope.showId = data.data.vehicle._id; // Get report's _id for update functions
@@ -456,7 +456,7 @@ angular.module('reportManagementController', ['reportServices'])
            vehicleObject.vehicle_platenumber = $scope.addPlateNumber;
            vehicleObject.vehicle_brand = $scope.addBrand;
            vehicleObject.vehicle_model= $scope.addModel;
-           vehicleObject.vehicle_type = $scope.addVehicleType;
+           vehicleObject.vehicle_involved_type = document.getElementById('choices').value;
            vehicleObject.vehicle_driver = $scope.addDriver;
 
           Report.vehicleChanges(vehicleObject).then(function(data){
@@ -571,6 +571,229 @@ angular.module('reportManagementController', ['reportServices'])
         }
     };
 
+    // Function: Clear all fields
+    app.clear = function() {
+        $scope.number = 'Clear'; // Set the filter box to 'Clear'
+        app.limit = 0; // Clear all results
+        $scope.searchKeyword = undefined; // Clear the search word
+        $scope.searchFilter = undefined; // Clear the search filter
+        app.showMoreError = false; // Clear any errors
+    };
+
+})
+.controller('dataManagementCtrl', function(Report, $scope, $http, $timeout, $location) {
+    var app = this;
+
+    app.loading = true; // Start loading icon on page load
+    app.accessDenied = true; // Hide table while loading
+    app.errorMsg = false; // Clear any error messages
+    app.editReportAccess = false; // Clear access on load
+    app.limit = 3; // Set a default limit to ng-repeat
+    app.searchLimit = 0; // Set the default search page results limit to zero
+
+    this.violationsReg = function(violationsData, valid) {
+        app.disabled = true; // Disable the form when user submits to prevent multiple requests to server
+        app.loading = true; // Activate bootstrap loading icon
+        app.errorMsg = false; // Clear errorMsg each time user submits
+
+        // If form is valid and passwords match, attempt to create user
+        if (valid) {
+            // Runs custom function that registers the user in the database
+            Report.create(app.violationData).then(function(data) {
+                // Check if user was saved to database successfully
+                if (data.data.success) {
+                    app.loading = false; // Stop bootstrap loading icon
+                    $scope.alert = 'alert alert-success'; // Set class for message
+                    app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
+                    getViolationsData();
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.successMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                } else {
+                    app.loading = false; // Stop bootstrap loading icon
+                    app.disabled = false; // If error occurs, remove disable lock from form
+                    $scope.alert = 'alert alert-danger'; // Set class for message
+                    app.errorMsg = data.data.message; // If not successful, grab message from JSON object
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.errorMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                }
+            });
+        } else {
+            app.disabled = false; // If error occurs, remove disable lock from form
+            app.loading = false; // Stop bootstrap loading icon
+            $scope.alert = 'alert alert-danger'; // Set class for message
+            app.errorMsg = 'Please ensure form is filled our properly'; // Display error if valid returns false
+            $timeout(function() {
+                app.errorMsg = false; // Clear success message
+                app.disabled = false; // Enable form for editing
+            }, 2000);
+        }
+    };
+    this.vehicleReg = function(vehicleData, valid) {
+        app.disabled = true; // Disable the form when user submits to prevent multiple requests to server
+        app.loading = true; // Activate bootstrap loading icon
+        app.errorMsg = false; // Clear errorMsg each time user submits
+
+        // If form is valid and passwords match, attempt to create user
+        if (valid) {
+            // Runs custom function that registers the user in the database
+            Report.createVehicleType(app.vehicleData).then(function(data) {
+                // Check if user was saved to database successfully
+                if (data.data.success) {
+                    app.loading = false; // Stop bootstrap loading icon
+                    $scope.alert = 'alert alert-success'; // Set class for message
+                    app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
+                    getVehicleTypesData();
+
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.successMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                } else {
+                    app.loading = false; // Stop bootstrap loading icon
+                    app.disabled = false; // If error occurs, remove disable lock from form
+                    $scope.alert = 'alert alert-danger'; // Set class for message
+                    app.errorMsg = data.data.message; // If not successful, grab message from JSON object
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.errorMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                }
+            });
+        } else {
+            app.disabled = false; // If error occurs, remove disable lock from form
+            app.loading = false; // Stop bootstrap loading icon
+            $scope.alert = 'alert alert-danger'; // Set class for message
+            app.errorMsg = 'Please ensure form is filled our properly'; // Display error if valid returns false
+            $timeout(function() {
+                app.errorMsg = false; // Clear success message
+                app.disabled = false; // Enable form for editing
+            }, 2000);
+        }
+    };
+
+    function getViolationsData(){
+    Report.getViolationsData().then(function(data){
+       if (data.data.success) {
+              // Check which permissions the logged in report has
+              if (data.data.police_permission === 'main' || data.data.police_permission === 'station') {
+                  app.violations = data.data.violations; // Assign reports from database to variable
+                  app.loading = false; // Stop loading icon
+                  app.accessDenied = false; // Show table
+                  // Check if logged in report is an admin or moderator
+                  if (data.data.police_permission === 'main') {
+
+                  } else if (data.data.police_permission === 'station') {
+
+                  }
+              } else {
+                  app.errorMsg = 'Insufficient Permissions'; // Reject edit and delete options
+                  app.loading = false; // Stop loading icon
+              }
+          } else {
+              app.errorMsg = data.data.message; // Set error message
+              app.loading = false; // Stop loading icon
+            }
+      });
+    }
+    getViolationsData();
+
+        function getVehicleTypesData(){
+        Report.getVehicleTypesData().then(function(data){
+           if (data.data.success) {
+                  // Check which permissions the logged in report has
+                  if (data.data.police_permission === 'main' || data.data.police_permission === 'station') {
+                      app.vehicles = data.data.vehicles; // Assign reports from database to variable
+                      app.loading = false; // Stop loading icon
+                      app.accessDenied = false; // Show table
+                      // Check if logged in report is an admin or moderator
+                      if (data.data.police_permission === 'main') {
+
+                      } else if (data.data.police_permission === 'station') {
+
+                      }
+                  } else {
+                      app.errorMsg = 'Insufficient Permissions'; // Reject edit and delete options
+                      app.loading = false; // Stop loading icon
+                  }
+              } else {
+                  app.errorMsg = data.data.message; // Set error message
+                  app.loading = false; // Stop loading icon
+                }
+          });
+        }
+        getVehicleTypesData();
+    // Function: Show more results on page
+    app.showMore = function(number) {
+        app.showMoreError = false; // Clear error message
+        // Run functio only if a valid number above zero
+        if (number > 0) {
+            app.limit = number; // Change ng-repeat filter to number requested by report
+        } else {
+            app.showMoreError = 'Please enter a valid number'; // Return error if number not valid
+        }
+    };
+
+    // Function: Show all results on page
+    app.showAll = function() {
+        app.limit = undefined; // Clear ng-repeat limit
+        app.showMoreError = false; // Clear error message
+    };
+
+
+    // Function: Perform a basic search function
+    app.search = function(searchKeyword, number) {
+        // Check if a search keyword was provided
+        if (searchKeyword) {
+            // Check if the search keyword actually exists
+            if (searchKeyword.length > 0) {
+                app.limit = 0; // Reset the limit number while processing
+                $scope.searchFilter = searchKeyword; // Set the search filter to the word provided by the report
+                app.limit = number; // Set the number displayed to the number entered by the report
+            } else {
+                $scope.searchFilter = undefined; // Remove any keywords from filter
+                app.limit = 0; // Reset search limit
+            }
+        } else {
+            $scope.searchFilter = undefined; // Reset search limit
+            app.limit = 0; // Set search limit to zero
+        }
+    };
+    // Function: Delete a user
+    app.deleteViolation = function(violation_committed) {
+       if (confirm('Are you sure you want to delete this?')) {
+         // Run function to delete a user
+         Report.deleteViolation(violation_committed).then(function(data) {
+             // Check if able to delete user
+             if (data.data.success) {
+                 getViolationsData(); // Reset users on page
+             } else {
+                 app.showMoreError = data.data.message; // Set error message
+             }
+         });
+       }
+     };
+     // Function: Delete a user
+     app.deleteVehicle= function(vehicle_type) {
+        if (confirm('Are you sure you want to delete this?')) {
+          // Run function to delete a user
+          Report.deleteVehicle(vehicle_type).then(function(data) {
+              // Check if able to delete user
+              if (data.data.success) {
+                  getVehicleTypesData(); // Reset users on page
+              } else {
+                  app.showMoreError = data.data.message; // Set error message
+              }
+          });
+        }
+      };
     // Function: Clear all fields
     app.clear = function() {
         $scope.number = 'Clear'; // Set the filter box to 'Clear'

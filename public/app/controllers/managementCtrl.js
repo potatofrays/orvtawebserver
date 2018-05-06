@@ -1,7 +1,7 @@
 angular.module('managementController', [])
 
 // Controller: User to control the management page and managing of user accounts
-.controller('managementCtrl', function(User, $scope) {
+.controller('managementCtrl', function(User, $scope, $timeout, $location) {
     var app = this;
 
     app.loading = true; // Start loading icon on page load
@@ -16,6 +16,85 @@ angular.module('managementController', [])
     app.mainAccess = false;
     //app.limit = 3; // Set a default limit to ng-repeat
     app.searchLimit = 0; // Set the default search page results limit to zero
+
+    this.regUser = function(regData, valid, confirmed) {
+        app.loading = true; // Activate bootstrap loading icon
+        app.errorMsg = false; // Clear errorMsg each time user submits
+        // If form is valid and passwords match, attempt to create user
+        if (valid && confirmed) {
+            app.regData.police_name = app.regData.firstName + " " + app.regData.lastName; // Combine first and last name before submitting to database
+            // Runs custom function that registers the user in the database
+            User.create(app.regData).then(function(data) {
+                // Check if user was saved to database successfully
+                if (data.data.success) {
+                    app.loading = false; // Stop bootstrap loading icon
+                    $scope.alert = 'alert alert-success'; // Set class for message
+                    app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
+                   $scope.regData.police_name = "";
+                    getUsers();
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.successMsg = false;
+                          getUsers();
+                          app.regData.police_name = "";
+                    }, 2000);
+                } else {
+                    app.loading = false; // Stop bootstrap loading icon
+                    app.disabled = false; // If error occurs, remove disable lock from form
+                    $scope.alert = 'alert alert-danger'; // Set class for message
+                    app.errorMsg = data.data.message; // If not successful, grab message from JSON object
+                    $timeout(function() {
+                      app.errorMsg = false;
+                    }, 2000);
+                }
+            });
+        } else {
+            app.disabled = false; // If error occurs, remove disable lock from form
+            app.loading = false; // Stop bootstrap loading icon
+            $scope.alert = 'alert alert-danger'; // Set class for message
+            app.errorMsg = 'Please ensure form is filled our properly'; // Display error if valid returns false
+        }
+    };
+
+    //  Custom function that checks if username is available for user to use
+    this.checkUsername = function(regData) {
+        app.checkingUsername = true; // Start bootstrap loading icon
+        app.usernameMsg = false; // Clear usernameMsg each time user activates ngBlur
+        app.usernameInvalid = false; // Clear usernameInvalid each time user activates ngBlur
+
+        // Runs custom function that checks if username is available for user to use
+        User.checkUsername(app.regData).then(function(data) {
+            // Check if username is available for the user
+            if (data.data.success) {
+                app.checkingUsername = false; // Stop bootstrap loading icon
+                app.usernameMsg = data.data.message; // If successful, grab message from JSON object
+            } else {
+                app.checkingUsername = false; // Stop bootstrap loading icon
+                app.usernameInvalid = true; // User variable to let user know that the chosen username is taken already
+                app.usernameMsg = data.data.message; // If not successful, grab message from JSON object
+            }
+        });
+    };
+
+    // Custom function that checks if e-mail is available for user to use
+    this.checkEmail = function(regData) {
+        app.checkingEmail = true; // Start bootstrap loading icon
+        app.emailMsg = false; // Clear emailMsg each time user activates ngBlur
+        app.emailInvalid = false; // Clear emailInvalid each time user activates ngBlur
+
+        // Runs custom function that checks if e-mail is available for user to use
+        User.checkEmail(app.regData).then(function(data) {
+            // Check if e-mail is available for the user
+            if (data.data.success) {
+                app.checkingEmail = false; // Stop bootstrap loading icon
+                app.emailMsg = data.data.message; // If successful, grab message from JSON object
+            } else {
+                app.checkingEmail = false; // Stop bootstrap loading icon
+                app.emailInvalid = true; // User variable to let user know that the chosen e-mail is taken already
+                app.emailMsg = data.data.message; // If not successful, grab message from JSON object
+            }
+        });
+    };
 
     // Function: get all the users from database
     function getUsers() {
@@ -2686,7 +2765,6 @@ angular.module('managementController', [])
     };
 
 })
-
 // Controller: Used to edit users
 .controller('editCtrl', function($scope, $routeParams, User, $timeout) {
     var app = this;

@@ -6580,7 +6580,7 @@ module.exports = function(router) {
     router.get('/findReport', function(req,res){
      models.Police_Report.find({})
      .populate({path:"people_involved_id", model:"People_Involved"})
-     .populate({path:"vehicle_id", model:"Vehicle"})
+     .populate({path:"vehicle_id", model:"Vehicle_Involved"})
      .exec(function(err, police_reports){
 
          if (err) {
@@ -6619,7 +6619,7 @@ module.exports = function(router) {
                              } else {
                                models.Police_Report.find({ $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}]})
                                .populate({path:"people_involved_id", model:"People_Involved"})
-                               .populate({path:"vehicle_id", model:"Vehicle"})
+                               .populate({path:"vehicle_id", model:"Vehicle_Involved"})
                                .exec(function(err,police_reports){
                                if (err) {
                                         res.json(500,err);
@@ -6635,7 +6635,7 @@ module.exports = function(router) {
                              } else {
                                  models.Police_Report.find({address_municipality: req.decoded.police_station, $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}]})
                                  .populate({path:"people_involved_id", model:"People_Involved"})
-                                 .populate({path:"vehicle_id", model:"Vehicle"})
+                                 .populate({path:"vehicle_id", model:"Vehicle_Involved"})
                                  .exec(function(err,police_reports){
                                  if (err) {
                                           res.json(500,err);
@@ -6746,12 +6746,12 @@ module.exports = function(router) {
         }
     });
     router.put('/addVehicle', function(req,res){
-        if(req.body.vehicle_platenumber || req.body.vehicle_brand || req.body.vehicle_type || req.body.vehicle_model || req.body.vehicle_driver){
+        if(req.body.vehicle_platenumber || req.body.vehicle_brand || req.body.vehicle_involved_type || req.body.vehicle_model || req.body.vehicle_driver){
         models.Police_Report.findById(req.body._id, function(err, vehicle){
-            var addVehicle = new models.Vehicle();
+            var addVehicle = new models.Vehicle_Involved();
             addVehicle.vehicle_platenumber = req.body.vehicle_platenumber;
             addVehicle.vehicle_brand = req.body.vehicle_brand;
-            addVehicle.vehicle_type = req.body.vehicle_type;
+            addVehicle.vehicle_involved_type = req.body.vehicle_involved_type;
             addVehicle.vehicle_model = req.body.vehicle_model;
             addVehicle.vehicle_driver = req.body.vehicle_driver;
             addVehicle.save();
@@ -6800,7 +6800,7 @@ module.exports = function(router) {
       }
     });
     router.get('/editVehicle/:id', function(req, res){
-     models.Vehicle.findById(req.params.id, function(err, vehicle) {
+     models.Vehicle_Involved.findById(req.params.id, function(err, vehicle) {
           if(err){
               res.json(500,err);
           }else{
@@ -6809,15 +6809,15 @@ module.exports = function(router) {
       });
     });
     router.put('/editVehicle', function(req,res){
-          if(req.body.vehicle_platenumber || req.body.vehicle_brand || req.body.vehicle_type || req.body.vehicle_model){
-        models.Vehicle.findById(req.body._id, function(err, vehicle){
+          if(req.body.vehicle_platenumber || req.body.vehicle_brand || req.body.vehicle_involved_type || req.body.vehicle_model){
+        models.Vehicle_Involved.findById(req.body._id, function(err, vehicle){
           if (err) {
             res.json(500, err);
           } else {
             vehicle.vehicle_platenumber = req.body.vehicle_platenumber;
             vehicle.vehicle_brand = req.body.vehicle_brand;
             vehicle.vehicle_model = req.body.vehicle_model;
-            vehicle.vehicle_type = req.body.vehicle_type;
+            vehicle.vehicle_involved_type = req.body.vehicle_involved_type;
             vehicle.vehicle_driver = req.body.vehicle_driver;
             vehicle.save(function(err){
               if (err) {
@@ -7338,7 +7338,7 @@ module.exports = function(router) {
 
      //route for vehicle type---------------------------------------------------------------
      router.get('/Bus', function(req,res){
-        models.Vehicle.find({vehicle_type:"Bus"},function(err, Bus){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Bus"},function(err, Bus){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7348,7 +7348,7 @@ module.exports = function(router) {
     });
 
     router.get('/Car', function(req,res){
-        models.Vehicle.find({vehicle_type:"Car"},function(err, Car){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Car"},function(err, Car){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7358,7 +7358,7 @@ module.exports = function(router) {
     });
 
     router.get('/Jeep', function(req,res){
-        models.Vehicle.find({vehicle_type:"Jeep"},function(err, Jeep){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Jeep"},function(err, Jeep){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7367,7 +7367,7 @@ module.exports = function(router) {
         })
     });
     router.get('/Bicycle', function(req,res){
-        models.Vehicle.find({vehicle_type:"Bicycle"},function(err, Bicycle){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Bicycle"},function(err, Bicycle){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7376,7 +7376,7 @@ module.exports = function(router) {
         })
     });
      router.get('/Motorcycle', function(req,res){
-        models.Vehicle.find({vehicle_type:"Motorcycle"},function(err, Motorcycle){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Motorcycle"},function(err, Motorcycle){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7385,7 +7385,7 @@ module.exports = function(router) {
         })
     });
      router.get('/Tricycle', function(req,res){
-        models.Vehicle.find({vehicle_type:"Tricycle"},function(err, Tricycle){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Tricycle"},function(err, Tricycle){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7394,7 +7394,7 @@ module.exports = function(router) {
         })
     });
      router.get('/Truck', function(req,res){
-        models.Vehicle.find({vehicle_type:"Truck"},function(err, Truck){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Truck"},function(err, Truck){
             if (err) {
                 res.json(500, err);
             }else{
@@ -7403,13 +7403,314 @@ module.exports = function(router) {
         })
     });
      router.get('/Van', function(req,res){
-        models.Vehicle.find({vehicle_type:"Van"},function(err, Van){
+        models.Vehicle_Involved.find({vehicle_involved_type:"Van"},function(err, Van){
             if (err) {
                 res.json(500, err);
             }else{
                 res.json({success:true, Van: Van});
             }
         })
+    });
+    router.post('/violations', function(req, res) {
+        var vio = new models.Violation(); // Create new User object
+        vio.violation_committed = req.body.violation_committed; // Save username from request to User object
+
+        // Check if request is valid and not empty or null
+        if (req.body.violation_committed === null || req.body.violation_committed === '') {
+            res.json({ success: false, message: 'Ensure all data were provided' });
+        } else {
+            // Save new user to database
+            vio.save(function(err) {
+                if (err) {
+
+                } else {
+                    res.json({ success: true, message: 'Violation Added.' }); // Send success message back to controller/request
+
+                }
+            });
+        }
+    });
+    router.get('/violationdataManagement', function(req, res) {
+        models.Violation.find({}, function(err, violations) {
+            if (err) {
+                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                var email = {
+                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                    to: 'orvtiadeveloper@zoho.com',
+                    subject: 'Error Logged',
+                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                };
+                // Function to send e-mail to myself
+                client.sendMail(email, function(err, info) {
+                    if (err) {
+                        console.log(err); // If error with sending e-mail, log to console/terminal
+                    } else {
+                        console.log(info); // Log success message to console if sent
+                        console.log(user.email); // Display e-mail that it was sent to
+                    }
+                });
+                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+            } else {
+                police_user.findOne({ police_username: req.decoded.police_username }, function(err, mainUser) {
+                    if (err) {
+                        // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                        var email = {
+                            from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                            to: 'orvtiadeveloper@zoho.com',
+                            subject: 'Error Logged',
+                            text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                            html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                        };
+                        // Function to send e-mail to myself
+                        client.sendMail(email, function(err, info) {
+                            if (err) {
+                                console.log(err); // If error with sending e-mail, log to console/terminal
+                            } else {
+                                console.log(info); // Log success message to console if sent
+                                console.log(user.email); // Display e-mail that it was sent to
+                            }
+                        });
+                        res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+                    } else {
+                        // Check if logged in report was found in database
+                        if (!mainUser) {
+                            res.json({ success: false, message: 'No user found' }); // Return error
+                        } else {
+                            // Check if user has editing/deleting privileges
+                            if (mainUser.police_permission === 'main' && mainUser.police_station === 'Lingayen') {
+                                // Check if users were retrieved from database
+                                if (!violations) {
+                                    res.json({ success: false, message: 'No report found' }); // Return error
+                                } else {
+                                    res.json({ success: true, violations: violations, police_permission: mainUser.police_permission, police_station: mainUser.police_station});
+                                }
+                            } else if (mainUser.police_permission === 'station') {
+                              if (!violations) {
+                                  res.json({ success: false, message: 'No report found' }); // Return error
+                              } else {
+                                  res.json({ success: true, violations: violations, police_permission: mainUser.police_permission, police_station: mainUser.police_station});
+                              }
+                            } else {
+                                res.json({ success: false, message: 'Insufficient Permissions' }); // Return access error
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+    router.post('/vehicles', function(req, res) {
+        var vehic = new models.Vehicle(); // Create new User object
+        vehic.vehicle_type = req.body.vehicle_type; // Save username from request to User object
+
+        // Check if request is valid and not empty or null
+        if (req.body.vehicle_type === null || req.body.vehicle_type === '') {
+            res.json({ success: false, message: 'Ensure all data were provided' });
+        } else {
+            // Save new user to database
+            vehic.save(function(err) {
+                if (err) {
+
+                } else {
+                    res.json({ success: true, message: 'Violation Added.' }); // Send success message back to controller/request
+
+                }
+            });
+        }
+    });
+    router.get('/vehicledataManagement', function(req, res) {
+        models.Vehicle.find({}, function(err, vehicles) {
+            if (err) {
+                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                var email = {
+                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                    to: 'orvtiadeveloper@zoho.com',
+                    subject: 'Error Logged',
+                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                };
+                // Function to send e-mail to myself
+                client.sendMail(email, function(err, info) {
+                    if (err) {
+                        console.log(err); // If error with sending e-mail, log to console/terminal
+                    } else {
+                        console.log(info); // Log success message to console if sent
+                        console.log(user.email); // Display e-mail that it was sent to
+                    }
+                });
+                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+            } else {
+                police_user.findOne({ police_username: req.decoded.police_username }, function(err, mainUser) {
+                    if (err) {
+                        // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                        var email = {
+                            from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                            to: 'orvtiadeveloper@zoho.com',
+                            subject: 'Error Logged',
+                            text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                            html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                        };
+                        // Function to send e-mail to myself
+                        client.sendMail(email, function(err, info) {
+                            if (err) {
+                                console.log(err); // If error with sending e-mail, log to console/terminal
+                            } else {
+                                console.log(info); // Log success message to console if sent
+                                console.log(user.email); // Display e-mail that it was sent to
+                            }
+                        });
+                        res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+                    } else {
+                        // Check if logged in report was found in database
+                        if (!mainUser) {
+                            res.json({ success: false, message: 'No user found' }); // Return error
+                        } else {
+                            // Check if user has editing/deleting privileges
+                           if (mainUser.police_permission === 'main' && mainUser.police_station === 'Lingayen') {
+                                // Check if users were retrieved from database
+                                if (!vehicles) {
+                                    res.json({ success: false, message: 'No report found' }); // Return error
+                                } else {
+                                    res.json({ success: true, vehicles: vehicles, police_permission: mainUser.police_permission, police_station: mainUser.police_station});
+                                }
+                            } else if (mainUser.police_permission === 'station') {
+                              if (!vehicles) {
+                                  res.json({ success: false, message: 'No report found' }); // Return error
+                              } else {
+                                  res.json({ success: true, vehicles: vehicles, police_permission: mainUser.police_permission, police_station: mainUser.police_station});
+                              }
+                            } else {
+                                res.json({ success: false, message: 'Insufficient Permissions' }); // Return access error
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+    // Route to delete a user
+    router.delete('/violationdataManagement/:violation_committed', function(req, res) {
+        var deletedViolation = req.params.violation_committed; // Assign the username from request parameters to a variable
+        police_user.findOne({ police_username: req.decoded.police_username }, function(err, mainUser) {
+            if (err) {
+                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                var email = {
+                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                    to: 'orvtiadeveloper@zoho.com',
+                    subject: 'Error Logged',
+                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                };
+                // Function to send e-mail to myself
+                client.sendMail(email, function(err, info) {
+                    if (err) {
+                        console.log(err); // If error with sending e-mail, log to console/terminal
+                    } else {
+                        console.log(info); // Log success message to console if sent
+                        console.log(user.email); // Display e-mail that it was sent to
+                    }
+                });
+                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+            } else {
+                // Check if current user was found in database
+                if (!mainUser) {
+                    res.json({ success: false, message: 'No user found' }); // Return error
+                } else {
+                    // Check if curent user has admin access
+                    if (mainUser.police_permission !== 'main' && mainUser.police_permission !== 'station') {
+                        res.json({ success: false, message: 'Insufficient Permissions' }); // Return error
+                    } else {
+                        // Fine the user that needs to be deleted
+                        models.Violation.findOneAndRemove({ violation_committed: deletedViolation }, function(err, violation) {
+                            if (err) {
+                                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                                var email = {
+                                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                                    to: 'orvtiadeveloper@zoho.com',
+                                    subject: 'Error Logged',
+                                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                                };
+                                // Function to send e-mail to myself
+                                client.sendMail(email, function(err, info) {
+                                    if (err) {
+                                        console.log(err); // If error with sending e-mail, log to console/terminal
+                                    } else {
+                                        console.log(info); // Log success message to console if sent
+                                        console.log(user.email); // Display e-mail that it was sent to
+                                    }
+                                });
+                                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+                            } else {
+                                res.json({ success: true }); // Return success status
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    });
+    router.delete('/vehicledataManagement/:vehicle_type', function(req, res) {
+        var deletedVehicle = req.params.vehicle_type; // Assign the username from request parameters to a variable
+        police_user.findOne({ police_username: req.decoded.police_username }, function(err, mainUser) {
+            if (err) {
+                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                var email = {
+                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                    to: 'orvtiadeveloper@zoho.com',
+                    subject: 'Error Logged',
+                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                };
+                // Function to send e-mail to myself
+                client.sendMail(email, function(err, info) {
+                    if (err) {
+                        console.log(err); // If error with sending e-mail, log to console/terminal
+                    } else {
+                        console.log(info); // Log success message to console if sent
+                        console.log(user.email); // Display e-mail that it was sent to
+                    }
+                });
+                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+            } else {
+                // Check if current user was found in database
+                if (!mainUser) {
+                    res.json({ success: false, message: 'No user found' }); // Return error
+                } else {
+                    // Check if curent user has admin access
+                    if (mainUser.police_permission !== 'main' && mainUser.police_permission !== 'station') {
+                        res.json({ success: false, message: 'Insufficient Permissions' }); // Return error
+                    } else {
+                        // Fine the user that needs to be deleted
+                        models.Vehicle.findOneAndRemove({ vehicle_type: deletedVehicle }, function(err, violation) {
+                            if (err) {
+                                // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
+                                var email = {
+                                    from: 'ORVTIA Team Staff, orvtiateam@zoho.com',
+                                    to: 'orvtiadeveloper@zoho.com',
+                                    subject: 'Error Logged',
+                                    text: 'The following error has been reported in the MEAN Stack Application: ' + err,
+                                    html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
+                                };
+                                // Function to send e-mail to myself
+                                client.sendMail(email, function(err, info) {
+                                    if (err) {
+                                        console.log(err); // If error with sending e-mail, log to console/terminal
+                                    } else {
+                                        console.log(info); // Log success message to console if sent
+                                        console.log(user.email); // Display e-mail that it was sent to
+                                    }
+                                });
+                                res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
+                            } else {
+                                res.json({ success: true }); // Return success status
+                            }
+                        });
+                    }
+                }
+            }
+        });
     });
 
     return router; // Return the router object to server

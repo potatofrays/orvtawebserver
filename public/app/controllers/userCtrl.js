@@ -7,11 +7,9 @@ angular.module('userControllers', ['userServices'])
         app.disabled = true; // Disable the form when user submits to prevent multiple requests to server
         app.loading = true; // Activate bootstrap loading icon
         app.errorMsg = false; // Clear errorMsg each time user submits
-
         // If form is valid and passwords match, attempt to create user
         if (valid && confirmed) {
             app.regData.police_name = app.regData.firstName + " " + app.regData.lastName; // Combine first and last name before submitting to database
-
             // Runs custom function that registers the user in the database
             User.create(app.regData).then(function(data) {
                 // Check if user was saved to database successfully
@@ -19,9 +17,9 @@ angular.module('userControllers', ['userServices'])
                     app.loading = false; // Stop bootstrap loading icon
                     $scope.alert = 'alert alert-success'; // Set class for message
                     app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
-
                     // Redirect after 2000 milliseconds (2 seconds)
                     $timeout(function() {
+                        app.successMsg = false;
                         $location.path('/management');
                     }, 2000);
                 } else {
@@ -29,6 +27,9 @@ angular.module('userControllers', ['userServices'])
                     app.disabled = false; // If error occurs, remove disable lock from form
                     $scope.alert = 'alert alert-danger'; // Set class for message
                     app.errorMsg = data.data.message; // If not successful, grab message from JSON object
+                    $timeout(function() {
+                      app.errorMsg = false;
+                    }, 2000);
                 }
             });
         } else {
