@@ -169,7 +169,7 @@ angular.module('reportManagementController', ['reportServices'])
       }
     }
     //function for button Save Changes
-    app.updateCitizenReport = function(valid, editCommittedAt, editAccidentType, editDate, editAccidentCause, editThoroughfare, editMunicipality, editProvince, editCredibility){
+    app.updateCitizenReport = function(valid, editCommittedAt, editAccidentType, editDate, editAccidentCause, editThoroughfare, editMunicipality, editProvince, editCredibility, editOnDuty){
         if(valid){
             var reportObject = {};
             reportObject._id = $scope.showId;
@@ -181,6 +181,7 @@ angular.module('reportManagementController', ['reportServices'])
             reportObject.address_province = $scope.editProvince;
             reportObject.report_credibility = $scope.editCredibility;
             reportObject.police_username = document.getElementById('username').value;
+            reportObject.onDuty = document.getElementById('onDuty').value;
         //userObject - to validate first the field to be updated then use route
         // to use the route created for editting
         Report.citizenReportChanges(reportObject).then(function(data){
@@ -232,7 +233,7 @@ angular.module('reportManagementController', ['reportServices'])
                 $scope.addAge = "";
                 $scope.addCitizenship = "";
                 $scope.addGender = "";
-                $scope.addViolation = "";
+                document.getElementById('vioChoices').value = "";
                 $scope.addStatus = "";
                 $scope.addType = "";
             }
@@ -254,7 +255,7 @@ angular.module('reportManagementController', ['reportServices'])
             if(data.data.success){
                 $scope.addPlateNumber = "";
                 $scope.addBrand = "";
-                $scope.addVehicleType = "";
+                document.getElementById('choices').value = "";
                 $scope.addModel = "";
                 $scope.addDriver = "";
             }
@@ -343,7 +344,7 @@ angular.module('reportManagementController', ['reportServices'])
                 $scope.addAge = "";
                 $scope.addCitizenship = "";
                 $scope.addGender = "";
-                $scope.addViolation = "";
+                document.getElementById('vioChoices').value = "";
                 $scope.addStatus = "";
                 $scope.addType = "";
             }
@@ -365,7 +366,7 @@ angular.module('reportManagementController', ['reportServices'])
             if(data.data.success){
                 $scope.addPlateNumber = "";
                 $scope.addBrand = "";
-                $scope.addVehicleType = "";
+                document.getElementById('choices').value = "";
                 $scope.addModel = "";
                 $scope.addDriver = "";
             }
@@ -794,6 +795,7 @@ angular.module('reportManagementController', ['reportServices'])
           });
         }
       };
+
     // Function: Clear all fields
     app.clear = function() {
         $scope.number = 'Clear'; // Set the filter box to 'Clear'
@@ -802,5 +804,103 @@ angular.module('reportManagementController', ['reportServices'])
         $scope.searchFilter = undefined; // Clear the search filter
         app.showMoreError = false; // Clear any errors
     };
+
+})
+.controller('editDataCtrl', function($scope, $routeParams, Report, $timeout) {
+    var app = this;
+
+    Report.getVehicleType($routeParams.id).then(function(data) {
+        // Check if the people involve's _id was found in database
+        if (data.data.success) {
+            $scope.addVehicleType = data.data.vehicle.vehicle_type; // Display name in scope
+            $scope.showId = data.data.vehicle._id; // Get report's _id for update functions
+        } else {
+            app.errorMsg = data.data.message; // Set error message
+            $scope.alert = 'alert alert-danger'; // Set class for message
+        }
+    });
+
+    app.updateVehicleType = function(valid, addVehicleType){
+       if(valid){
+          var vehicleObject = {};
+          vehicleObject._id = $scope.showId;
+          vehicleObject.vehicle_type = $scope.addVehicleType;
+
+         Report.vehicleTypeChanges(vehicleObject).then(function(data){
+           if (data.data.success) {
+             $scope.alert = 'alert alert-success'; // Set class for message
+             app.successMsg = data.data.message; // Set success message
+             // Function: After two seconds, clear and re-enable
+             $timeout(function() {
+                 app.successMsg = false; // Clear success message
+                 app.disabled = false; // Enable form for editing
+             }, 2000);
+           } else {
+               $scope.alert = 'alert alert-danger'; // Set class for message
+               app.errorMsg = data.data.message; // Clear any error messages
+
+               // Function: After two seconds, clear and re-enable
+               $timeout(function() {
+                   app.errorMsg = false; // Clear success message
+                   app.disabled = false; // Enable form for editing
+               }, 2000);
+           }
+         });
+       } else {
+         $scope.alert = 'alert alert-danger'; // Set class for message
+         app.errorMsg = 'Please ensure form is filled out properly'; // Set error message
+         app.disabled = false; // Enable form for editing
+         $timeout(function() {
+             app.errorMsg = false; // Clear success message
+             app.disabled = false; // Enable form for editing
+         }, 2000);
+       }
+     }
+     Report.getViolations($routeParams.id).then(function(data) {
+         // Check if the people involve's _id was found in database
+         if (data.data.success) {
+             $scope.addViolation = data.data.violation.violation_committed; // Display name in scope
+             $scope.showId = data.data.violation._id; // Get report's _id for update functions
+         } else {
+             app.errorMsg = data.data.message; // Set error message
+             $scope.alert = 'alert alert-danger'; // Set class for message
+         }
+     });
+     app.updateViolation = function(valid, addViolation){
+        if(valid){
+           var violationObj = {};
+           violationObj._id = $scope.showId;
+           violationObj.violation_committed = $scope.addViolation;
+
+          Report.violationChanges(violationObj).then(function(data){
+            if (data.data.success) {
+              $scope.alert = 'alert alert-success'; // Set class for message
+              app.successMsg = data.data.message; // Set success message
+              // Function: After two seconds, clear and re-enable
+              $timeout(function() {
+                  app.successMsg = false; // Clear success message
+                  app.disabled = false; // Enable form for editing
+              }, 2000);
+            } else {
+                $scope.alert = 'alert alert-danger'; // Set class for message
+                app.errorMsg = data.data.message; // Clear any error messages
+
+                // Function: After two seconds, clear and re-enable
+                $timeout(function() {
+                    app.errorMsg = false; // Clear success message
+                    app.disabled = false; // Enable form for editing
+                }, 2000);
+            }
+          });
+        } else {
+          $scope.alert = 'alert alert-danger'; // Set class for message
+          app.errorMsg = 'Please ensure form is filled out properly'; // Set error message
+          app.disabled = false; // Enable form for editing
+          $timeout(function() {
+              app.errorMsg = false; // Clear success message
+              app.disabled = false; // Enable form for editing
+          }, 2000);
+        }
+      }
 
 });

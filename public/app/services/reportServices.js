@@ -17,6 +17,20 @@ angular.module('reportServices', [])
     reportFactory.deleteVehicle = function(vehicle_type) {
         return $http.delete('/api/vehicledataManagement/' + vehicle_type);
     };
+    reportFactory.getVehicleType = function(id) {
+        return $http.get('/api/editVehicleType/' + id);
+    };
+    // Edit a vehicle
+    reportFactory.vehicleTypeChanges = function(id) {
+        return $http.put('/api/editVehicleType', id);
+    };
+    reportFactory.getViolations = function(id) {
+        return $http.get('/api/editViolation/' + id);
+    };
+    // Edit a vehicle
+    reportFactory.violationChanges = function(id) {
+        return $http.put('/api/editViolation', id);
+    };
     reportFactory.getFind = function(){
         return $http.get('/api/findReport/');
     };

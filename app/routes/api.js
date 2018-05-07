@@ -6698,7 +6698,7 @@ module.exports = function(router) {
     });
     router.put('/editReport', function(req,res){
       if(req.body.accident_type || req.body.accident_cause || req.body.address_thoroughfare
-      || req.body.address_municipality || req.body.address_province || req.body.report_credibility || req.body.police_username){
+      || req.body.address_municipality || req.body.address_province || req.body.report_credibility || req.body.police_username || req.body.onDuty){
       models.Police_Report.findById(req.body._id, function(err, report){
         if (err) {
           res.json(500, err);
@@ -6711,6 +6711,7 @@ module.exports = function(router) {
           report.address_province = req.body.address_province;
           report.report_credibility = req.body.report_credibility;
           report.police_username = req.body.police_username;
+          report.onDuty = req.body.onDuty;
           report.save(function(err){
             if (err) {
                  res.json(500, err);
@@ -7712,6 +7713,60 @@ module.exports = function(router) {
             }
         });
     });
+    router.get('/editVehicleType/:id', function(req, res){
+     models.Vehicle.findById(req.params.id, function(err, vehicle) {
+          if(err){
+              res.json(500,err);
+          }else{
+              res.json({success: true, vehicle: vehicle});
+          }
+      });
+    });
+    router.put('/editVehicleType', function(req,res){
+          if(req.body.vehicle_type){
+        models.Vehicle.findById(req.body._id, function(err, vehicle){
+          if (err) {
+            res.json(500, err);
+          } else {
+            vehicle.vehicle_type = req.body.vehicle_type;
+            vehicle.save(function(err){
+              if (err) {
+                   res.json(500, err);
+               } else {
+                  res.json({success: true, message: 'Updated', vehicle: vehicle});
+               }
+             });
+            }
+         });
+        }
+      });
+      router.get('/editViolation/:id', function(req, res){
+       models.Violation.findById(req.params.id, function(err, violation) {
+            if(err){
+                res.json(500,err);
+            }else{
+                res.json({success: true, violation: violation});
+            }
+        });
+      });
+      router.put('/editViolation', function(req,res){
+            if(req.body.violation_committed){
+          models.Violation.findById(req.body._id, function(err, violation){
+            if (err) {
+              res.json(500, err);
+            } else {
+              violation.violation_committed = req.body.violation_committed;
+              violation.save(function(err){
+                if (err) {
+                     res.json(500, err);
+                 } else {
+                    res.json({success: true, message: 'Updated', violation: violation});
+                 }
+               });
+              }
+           });
+          }
+        });
 
     return router; // Return the router object to server
 };

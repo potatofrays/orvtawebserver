@@ -58,20 +58,27 @@
            <option value="Tire Blowouts">Tire Blowouts</option>
            <option value="Unsafe Lane Changes">Unsafe Lane Changes</option>
          </datalist>
-          <select class="browser-default form-control col-6 tdtd"  title='Report Credibility' ng-model="editCredibility" style="padding-left: 20px;">
+          <select class="browser-default form-control col-6 tdtd" ng-model="editOnDuty" title='Report Credibility' ng-model="editCredibility" style="padding-left: 20px;">
   					<option value="" disabled selected>Report Credibility</option>
   					<option value="Factual">Factual</option>
-  					<option value="Fraud"> Fraud</option>
-            <option value="Pending">  Pending</option>
+  					<option value="Fraud">Fraud</option>
+            <option value="Pending">Pending</option>
+            <option value="Pending">Already Reported</option>
   			  </select>
-          <input type=" text" id="username" title='Police Informant' class="form-control col-6 tdtd" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
+          <input type=" text" id="onDuty" title='Police On Duty' class="form-control col-6 tdtd" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
             <input class="form-control col-6 tdtd" datetime-picker hour="12" minute='59' date-format="yyyy-MM-dd HH:mm:ss" ng-model="editCommittedAt" style="padding-left: 10px;">
+            <div ng-controller="managementCtrl as management">
+             <select id="choices" class="browser-default form-control col-6 tdtd" placeholder="Select Police Informant" ng-model="addVehicleType">
+                <option value="" disabled selected>Select Police Informant</option>
+               <option ng-repeat="person in management.police_users" value="{{person.police_username}}">{{person.police_username}}</option>
+             </select>
+           </div>
             <a href="#" data-toggle="modal" data-target="#modalPeople" style="font-family: Courier New; color: grey"><i class="fa fa-plus-square" aria-hidden="true" ></i> Click to Add New People Involved</a><br>
-        <input class="form-control col-6 tdtd"  title='Street' type=" text" ng-model="editThoroughfare"  placeholder="  Thoroughfare" style="padding-left: 20px;">
-  			<input class="form-control col-6 tdtd"  title='Municipality' type=" text" ng-model="editMunicipality" placeholder="  Municipality" style="padding-left: 20px; padding-bottom: 8px;" readonly>
-  			<input class="form-control col-6 tdtd"  title='Province' type=" text" ng-model="editProvince" placeholder="  Province" style="padding-left: 20px; padding-bottom: 5px;" readonly>
-        <input type=" text" id="onDuty" title='On Duty' class="form-control col-6 tdtd" value="{{main.police_permission}}" style="padding-left: 10px;" readonly>
-        <a href="#" data-toggle="modal" data-target="#modalVehicle" style="font-family: Courier New; color: grey;"><i class="fa fa-plus-square" aria-hidden="true"></i> Click to Add Vehicle</a>
+            <input class="form-control col-6 tdtd"  title='Street' type=" text" ng-model="editThoroughfare"  placeholder="  Thoroughfare" style="padding-left: 20px;">
+      			<input class="form-control col-6 tdtd"  title='Municipality' type=" text" ng-model="editMunicipality" placeholder="  Municipality" style="padding-left: 20px; padding-bottom: 8px;" readonly>
+      			<input class="form-control col-6 tdtd"  title='Province' type=" text" ng-model="editProvince" placeholder="  Province" style="padding-left: 20px; padding-bottom: 5px;" readonly>
+            <input type=" text" id="onDuty" title='On Duty' class="form-control col-6 tdtd" value="{{main.police_permission}}" style="padding-left: 10px;" readonly>
+            <a href="#" data-toggle="modal" data-target="#modalVehicle" style="font-family: Courier New; color: grey;"><i class="fa fa-plus-square" aria-hidden="true"></i> Click to Add Vehicle</a>
         <br>
         <button class="btn btn-elegant btn-md px-3"  type="submit">Save Changes</button>
 		</form>

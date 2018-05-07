@@ -106,11 +106,8 @@
                          <span ng-show="register.checkingUsername && regForm.police_username.$valid" class="glyphicon glyphicon-repeat"></span>
                          <p class="help-block" ng-show="register.usernameMsg && !regForm.police_username.$error.required && regForm.police_username.$valid" style="color: green; font-size: 11px; font-family: Courier New;">{{ register.usernameMsg }}</p>
                          <ul ng-show="(!regForm.police_username.$pristine && regForm.police_username.$error.pattern) || (!regForm.police_username.$pristine && regForm.police_username.$error.minlength) || (!regForm.police_username.$pristine && regForm.police_username.$error.maxlength)" class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
-                             <li class="decor">Usernames can consist of lowercase, capitals</li>
-                             <li class="decor">Usernames can consist of alphanumeric characters</li>
+                             <li class="decor">Usernames can consist of lowercase, capitals & alphanumeric characters</li>
                              <li class="decor">Usernames can consist of underscore and hyphens and spaces</li>
-                             <li class="decor">Cannot be two underscores, two hypens or two spaces in a row</li>
-                             <li class="decor">Cannot have a underscore, hypen or space at the start or end</li>
                              <li class="decor">Must be at least 3 characters but no more than 25</li>
                          </ul>
                      </div>
@@ -125,10 +122,7 @@
                          <!-- Password Validation -->
                          <p class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.required) || (regForm.$submitted && regForm.firstPassword.$error.required)" style="color: red; font-size: 11px; font-family: Courier New;">This field is required</p>
                          <ul ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.pattern) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.minlength) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.maxlength)" class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
-                             <li class="decor">Must contain at least one upper case letter</li>
-                             <li class="decor">Must contain at least one lower case letter</li>
-                             <li class="decor">Must contain at least one number</li>
-                             <li class="decor">Must contain at least one special character</li>
+                             <li class="decor">Must contain at least one upper case and lower case letter, number and special character</li>
                              <li class="decor">Must contain at least 8 characters but no more than 35</li>
                          </ul>
                      </div>
@@ -160,7 +154,7 @@
                             <ul ng-show="(!regForm.police_contact.$pristine && regForm.police_contact.$error.pattern) || (!regForm.police_contact.$pristine && regForm.police_contact.$error.minlength) || (!regForm.police_contact.$pristine && regForm.police_contact.$error.maxlength)" class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
                                 <li class="decor">Must be a valid ph number</li>
                                 <li class="decor">Must not contain any special characters or spaces</li>
-                                <li class="decor">Must be 11 numbers (09xxxxxxxxx)</li>
+                                <li class="decor">Must be 11 digit numbers (09xxxxxxxxx)</li>
                             </ul>
                         </div>
                      </div>

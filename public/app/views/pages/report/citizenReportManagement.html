@@ -35,14 +35,13 @@
           </div>
            <button class="btn btn-info mb-1 btn-red btn-sm px-2" ng-click="citizenReportManagement.search(searchKeyword, number);">cOUNT <i class="fa fa-check ml-1"></i></button>
           <button class="btn btn-info mb-1 btn-grey btn-sm px-2" ng-click="citizenReportManagement.clear();">Clear <i class="fa fa-check ml-1"></i></button>
-        </div><br>
+        </div>
 
   <!--alert-->
   <div class= "jumbotron text-center" ng-show="main.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading....</p>
   </div>
-  <hr>
   <div class="show-hide-message center-block" ng-show="citizenReportManagement.showMoreError">
     <div class="alert alert-danger center-block">{{ citizenReportManagement.showMoreError}}</div>
   </div>

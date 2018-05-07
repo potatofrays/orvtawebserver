@@ -35,7 +35,15 @@
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-});</script>
+});
+</script>
+<script>
+
+$('#panel21 a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+});
+</script>
 
 <br><br>
 <div class="container-fluid">
@@ -115,7 +123,7 @@ $(document).ready(function(){
                   <tr ng-repeat = "addedViolation in dataManagement.violations | filter: searchKeyword | filter: searchFilter" >
                       <td class="tdtd" style="color: black;"><b>{{addedViolation.violation_committed}}</b></td>
                       <td>
-                      <a href="/editViolation/{{ addViolation._id }}">
+                      <a href="/editViolation/{{ addedViolation._id }}">
                         <button type="button" class="btn btn-grey btn-sm px-2" title='Update Violationas'>Update</button>
                       </a>
                       <a href="#">
@@ -124,8 +132,7 @@ $(document).ready(function(){
                       </td>
                   </tr>
               </table>
-          </div><br>
-
+          </div>
           </div>
           <!--/.Panel 1-->
           <!--Panel 2-->

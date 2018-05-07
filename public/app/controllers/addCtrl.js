@@ -15,7 +15,9 @@ angular.module('addCtrl', ['geolocation', 'gservice'])
     $scope.formData.latitude = 15.7961094;
     $scope.formData.address_province = "Pangasinan";
     $scope.formData.address_municipality = document.getElementById('Municipality').value;
+    $scope.formData.onDuty = document.getElementById('onDuty').value;
     $scope.formData.police_username = document.getElementById('Username').value;
+
 
     // Get User's actual coordinates based on HTML5 at window load
     geolocation.getLocation().then(function(data){
@@ -104,7 +106,8 @@ angular.module('addCtrl', ['geolocation', 'gservice'])
             address_province: $scope.formData.address_province,
             location_coordinates: [$scope.formData.longitude, $scope.formData.latitude],
             committed_at: $scope.formData.committed_at,
-            police_username: document.getElementById('Username').value
+            police_username: document.getElementById('Username').value,
+            onDuty: document.getElementById('onDuty').value
 
         };
 
