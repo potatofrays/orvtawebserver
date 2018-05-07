@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0">
 
     <!-- Main Angular Files -->
     <script src="assets/js/angular.js"></script>
@@ -54,6 +53,14 @@
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
     <link rel="stylesheet" href="../bower_components/angularjs-datetime-picker/angularjs-datetime-picker.css" />
     <script src="../bower_components/angularjs-datetime-picker/angularjs-datetime-picker.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost');
+      socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+      });
+    </script>
 
     <!-- Angular Files -->
     <script src="assets/js/headerCtrl.js"></script>

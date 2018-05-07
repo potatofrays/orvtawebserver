@@ -31,11 +31,9 @@ angular.module('managementController', [])
                     $scope.alert = 'alert alert-success'; // Set class for message
                     app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
                    $scope.regData.police_name = "";
-                    getUsers();
                     // Redirect after 2000 milliseconds (2 seconds)
                     $timeout(function() {
                         app.successMsg = false;
-                          getUsers();
                           app.regData.police_name = "";
                     }, 2000);
                 } else {

@@ -7132,11 +7132,11 @@ module.exports = function(router) {
                               res.json({success:true, station: station});
                           }
                       })
-                }
-            }
-        }
-    })
-  });
+              }
+          }
+      }
+  })
+});
   //all accident type
   router.get('/accidentType', function(req, res){
       police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){

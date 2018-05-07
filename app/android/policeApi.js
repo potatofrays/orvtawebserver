@@ -214,11 +214,11 @@ module.exports = function(router){
 			});
 	});
 	router.get('/vehicle', function(req, res){
-		 	models.Vehicle.find({}, function(err,vehicle){
+		 	models.Vehicle.find({ }, function(err,vehicle){
 		 		if (err) {
 		 			res.json(500,err);
 		 		}else{
-		 			res.json({success: true, vehicle: vehicle});
+		 			res.json({success: true, vehicle: vehicle });
 		 		}
 		 	})
 		 });
