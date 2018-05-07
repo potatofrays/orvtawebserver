@@ -298,10 +298,10 @@
       <td class="tdtd">{{ person.police_updatedAt | date: 'MMM d y h: mma' }}</td>
 			<td class="tdtd">
 				<a href="/edit2/{{ person._id }}">
-					<button type="button" ng-show="management.editAccess" title='Edit Police User' class="btn btn-info btn-grey btn-sm px-3">Edit</button>
+				    <i ng-show="management.editAccess" class="fa fa-edit fa-2x" aria-hidden="true"></i><br>
 				</a>
 				<a href="#">
-          <button type="button" ng-click="management.deleteUser(person.police_username);" title='Delete Police User' ng-show="management.deleteUserAccess" class="btn btn-info mb-1 search btn-red btn-sm px-2"> Delete</button>
+          <i ng-click="management.deleteUser(person.police_username);" title='Delete Police User' ng-show="management.deleteUserAccess" class="fa fa-trash fa-2x" aria-hidden="true"></i>
 				</a>
 			</td>
 		</tr>

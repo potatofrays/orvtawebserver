@@ -36,12 +36,12 @@
      <form name ="addForm"  novalidate><br>
          <!--text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
          <div class="md-form form-sm">
-           <input type=" text" class="form-control col-6" placeholder="Thoroughfare"  id="Thoroughfare" ng-model="formData.address_thoroughfare" style="padding-left: 10px;" required>
-           <input type=" text" class="form-control col-6" id="Municipality" value="{{main.police_station}}" ng-model="formData.address_municipality" style="padding-left: 10px;" readonly>
-           <input type=" text" class="form-control col-6" id='Province' placeholder="Province"  ng-model="formData.address_province" style="padding-left: 10px;" readonly>
-           <input type=" text" class="form-control col-6" id='onDuty' placeholder="On Duty"  ng-model="formData.onDuty" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
+           <input type=" text" class="form-control" placeholder="Thoroughfare"  id="Thoroughfare" ng-model="formData.address_thoroughfare" style="padding-left: 10px;" required>
+           <input type=" text" class="form-control" id="Municipality" value="{{main.police_station}}" ng-model="formData.address_municipality" style="padding-left: 10px;" readonly>
+           <input type=" text" class="form-control" id='Province' placeholder="Province"  ng-model="formData.address_province" style="padding-left: 10px;" readonly>
+           <input type=" text" class="form-control" id='onDuty' placeholder="On Duty"  ng-model="formData.onDuty" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
            <div ng-controller="managementCtrl as management">
-            <select id="Username" class="browser-default form-control col-6 tdtd" placeholder="Select Police Informant" ng-model="formData.police_username">
+            <select id="Username" class="browser-default form-control tdtd" placeholder="Select Police Informant" ng-model="formData.police_username">
                <option value="" disabled selected>Select Police Informant</option>
               <option ng-repeat="person in management.police_users" value="{{person.police_username}}">{{person.police_username}}</option>
             </select>
@@ -54,18 +54,18 @@
          </div>
          <div class="md-form form-sm">
               <p style="color: grey; font-size: 12px;">Longitude:</p>
-             <input type=" text" class="form-control col-6" id="latitude"  ng-model="formData.latitude" style="padding-left: 10px;" readonly>
+             <input type=" text" class="form-control" id="latitude"  ng-model="formData.latitude" style="padding-left: 10px;" readonly>
          </div>
          <div class="md-form form-sm">
                <p style="color: grey; font-size: 12px;">Latitude:</p>
-             <input type=" text" class="form-control col-6" id="longitude"  ng-model="formData.longitude" style="padding-left: 10px;" readonly>
+             <input type=" text" class="form-control" id="longitude"  ng-model="formData.longitude" style="padding-left: 10px;" readonly>
          </div>
 
          <div class="md-form">
             <p style="color: grey; font-size: 12px;">Date and Time Transpired:</p>
-             <input datetime-picker hour="12" minute='59' class="form-control col-6 tdtd" placeholder="Click to Enter Date/Time" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.committed_at" style="padding-left: 10px;">
+             <input datetime-picker hour="12" minute='59' class="form-control tdtd" placeholder="Click to Enter Date/Time" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.committed_at" style="padding-left: 10px;">
          </div>
-          <input list="accidentTypes" name="accidentType" title='Accident Type' placeholder="Accident Type" title='Accident Type' ng-model="formData.cause" style="padding-left: 20px;" class="form-control col-6 tdtd">
+          <input list="accidentTypes" name="accidentType" title='Accident Type' placeholder="Accident Type" title='Accident Type' ng-model="formData.cause" style="padding-left: 20px;" class="form-control tdtd">
            <datalist id="accidentTypes">
              <option value="Head-On Collision">Head-On Collision</option>
              <option value="High Speeding Collision of Animals">High Speeding Collision of Animals</option>
@@ -75,7 +75,7 @@
              <option value="Side/Roadside Collision">Side/Roadside Collision</option>
              <option value="Stationary Collisions">Stationary Collisions</option>
            </datalist>
-          <input list="browsers" name="browser" title='Accident Cause' placeholder="Accident Cause" ng-model="formData.type" style="padding-left: 20px;" class="form-control col-6 tdtd">
+          <input list="browsers" name="browser" title='Accident Cause' placeholder="Accident Cause" ng-model="formData.type" style="padding-left: 20px;" class="form-control tdtd">
            <datalist id="browsers">
    					<option value="Animal Crossings">Animal Crossings</option>
    					<option value="Deadly Curves">Deadly Curves</option>
@@ -97,8 +97,8 @@
    					<option value="Unsafe Lane Changes">Unsafe Lane Changes</option>
            </datalist>
           <div>
-          <button type="submit" class="btn btn-elegant btn-sm pc-2" ng-click="createReport()" ng-disabled="addForm.$invalid">Click to save</button>
-          <button class="btn btn-info mb-1 btn-grey btn-sm px-2" ng-show="add.clickView" onclick="javascript:window.location.reload()" title='Add New Report'><i class="fa fa-plus-square prefix" aria-hidden="true"></i></button>
+          <button type="submit" class="btn btn-rounded btn-elegant btn-sm pc-2" ng-click="createReport()" ng-disabled="addForm.$invalid">Click to save</button>
+          <a ng-show="add.clickView"  onclick="javascript:window.location.reload()" title='Add New Report' class="btn-floating btn-sm btn-grey"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
           <div>
             <hr>
             <h6 ng-show="add.clickView">Add More Details to Report:</h6>
@@ -116,9 +116,9 @@
                         </div>
                         <div class="modal-body">
                             <form name= "addForm.formData">
-                            <input class="form-control col-6" type="hidden" ng-model="showIdPeople" readonly>
+                            <input class="form-control" type="hidden" ng-model="showIdPeople" readonly>
                             <div class="md-form">
-                              <input class="form-control col-6" type=" text"  name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" ng-model="addName" placeholder=" Name" style="padding-left: 10px;">
+                              <input class="form-control" type=" text"  name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" ng-model="addName" placeholder=" Name" style="padding-left: 10px;">
                               <ul ng-show="(!addform.formData.people_involved_name.$pristine && addform.formData.people_involved_name.$error.pattern) || (!addform.formData.people_involved_name.$pristine && addform.formData.people_involved_name.$error.minlength) || (!addform.formData.people_involved_name.$pristine && addform.formData.people_involved_name.$error.maxlength)"
                               class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
                                   <li class="decor">Must have a space in between first and last name</li>
@@ -128,36 +128,36 @@
                               </ul>
                             </div>
                             <div class="md-form">
-                              <input class="form-control col-6" type=" text" name="people-involved_age" ng-pattern="/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/" ng-minlength="1" ng-maxlength="4" ng-model="addAge" placeholder=" Age" style="padding-left: 10px;">
+                              <input class="form-control" type=" text" name="people-involved_age" ng-pattern="/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/" ng-minlength="1" ng-maxlength="4" ng-model="addAge" placeholder=" Age" style="padding-left: 10px;">
                               <ul ng-show="(!addForm.formData.people_involved_age.$pristine && addForm.formData.people_involved_age.$error.pattern) || (!addForm.formData.people_involved_age.$pristine && addForm.formData.people_involved_age.$error.minlength) || (!addForm.formData.people_involved_age.$pristine && addForm.formData.people_involved_age.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
                                 <li class="decor">Must not contain special characters and letters</li>
                              </ul>
                             </div>
                             <div class="md-form">
-                              <input class="form-control col-6" type=" text"  name="people_involved_citizenship" ng-pattern="/^[a-zA-Z\s]+$/" ng-model="addCitizenship" placeholder=" Citizenship" style="padding-left: 10px;">
+                              <input class="form-control" type=" text"  name="people_involved_citizenship" ng-pattern="/^[a-zA-Z\s]+$/" ng-model="addCitizenship" placeholder=" Citizenship" style="padding-left: 10px;">
                               <ul ng-show="(!addForm.formData.people_involved_citizenship.$pristine && addForm.formData.people_involved_citizenship.$error.pattern) || (!addForm.formData.people_involved_citizenship.$pristine && addForm.formData.people_involved_citizenship.$error.minlength) || (!editVehicle.people_involved_citizenship.$pristine && addForm.formData.people_involved_citizenship.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
                                  <li class="decor">Must not contain special characters and numbers</li>
                                </ul>
                             </div>
-                            <select class="browser-default form-control col-6" ng-model="addGender">
+                            <select class="browser-default form-control" ng-model="addGender">
                               <option value="" disabled selected>Select Gender</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                           </select>
                           <div ng-controller="dataManagementCtrl as dataManagement">
-                           <select id="vioChoices" class="browser-default form-control col-6" placeholder="Select Violation" ng-model="addViolation">
+                           <select id="vioChoices" class="browser-default form-control" placeholder="Select Violation" ng-model="addViolation">
                              <option value="" disabled selected>Select Violation</option>
                              <option ng-repeat="violation in dataManagement.violations" value="{{violation.violation_committed}}">{{violation.violation_committed}}</option>
                            </select>
                          </div>
-                          <select class="browser-default form-control col-6" ng-model="addStatus">
+                          <select class="browser-default form-control" ng-model="addStatus">
                               <option value="" disabled selected>Select Status</option>
                               <option value="Unharmed">Unharmed</option>
                               <option value="Injured">Injured</option>
                               <option value="Hospitalized">Hospitalized</option>
                               <option value="Dead">Dead</option>
                           </select>
-                          <select class="browser-default form-control col-6" ng-model="addType">
+                          <select class="browser-default form-control" ng-model="addType">
                               <option value="" disabled selected>Select Type</option>
                               <option value="Suspect">Suspect</option>
                               <option value="Victim">Victim</option>
@@ -184,22 +184,22 @@
                         <form name= "addForm.formData">
                           <input type="hidden" ng-model="showIdVehicle" style="padding-left: 10px;" readonly>
                           <div ng-controller="dataManagementCtrl as dataManagement">
-                           <select id="choices" class="browser-default form-control col-6" placeholder="Select Vehicle Type" ng-model="addVehicleType">
+                           <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" ng-model="addVehicleType">
                              <option value="" disabled selected>Select Vehicle Type</option>
                              <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
                            </select>
                          </div>
                           <div class="md-form">
-                          <input class="form-control col-6" name="vehicle_platenumber" type=" text" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlatenumber" placeholder=" Plate Number" style="padding-left: 10px;">
+                          <input class="form-control" name="vehicle_platenumber" type=" text" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlatenumber" placeholder=" Plate Number" style="padding-left: 10px;">
                           <ul ng-show="(!addForm.formData.vehicle_platenumber.$pristine && addForm.formData.vehicle_platenumber.$error.pattern) || (!addForm.formData.vehicle_platenumber.$pristine && addForm.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && addForm.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
                              <li class="decor">Only upper case letters and numbers</li>
                              <li class="decor">Must not contain special characters</li>
                              <li class="decor">Must be at least 7 characters but no more than 8</li>
                          </ul>
                        </div>
-                          <input class="form-control col-6" type=" text" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
-                          <input class="form-control col-6" type=" text" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
-                          <input class="form-control col-6" type=" text" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
+                          <input class="form-control" type=" text" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
+                          <input class="form-control" type=" text" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
+                          <input class="form-control" type=" text" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
                           <button type="submit" class="btn btn-md btn-elegant" ng-click="addVehicle()">Save</button>
                         </form>
                     </div>

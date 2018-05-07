@@ -80,7 +80,7 @@
             <input type=" text" id="onDuty" title='On Duty' class="form-control col-6 tdtd" value="{{main.police_permission}}" style="padding-left: 10px;" readonly>
             <a href="#" data-toggle="modal" data-target="#modalVehicle" style="font-family: Courier New; color: grey;"><i class="fa fa-plus-square" aria-hidden="true"></i> Click to Add Vehicle</a>
         <br>
-        <button class="btn btn-elegant btn-md px-3"  type="submit">Save Changes</button>
+        <button class="btn btn-elegant btn-md px-3 btn-rounded" type="submit">Save Changes</button>
 		</form>
   </div>
 </div>
@@ -143,7 +143,7 @@
                   <option value="Suspect">Suspect</option>
                   <option value="Victim">Victim</option>
               </select>
-              <button type="submit" class="btn btn-md btn-elegant px-3" ng-click="editReport.addPeople(addName, editReport.formData.people_involved_name.$valid, addAge, editReport.formData.people_involved_age.$valid,addCitizenship, editReport.formData.people_involved_citizenship.$valid,addGender,editReport.formData.people_involved_gender.$valid,addViolation,editReport.formData.people_involved_violation.$valid,addStatus, editReport.formData.people_involved_status.$valid,addType,editReport.formData.people_involved_type.$valid)" style="float: right;">Save</button>
+              <button type="submit" class="btn btn-md btn-elegant px-3 btn-rounded" ng-click="editReport.addPeople(addName, editReport.formData.people_involved_name.$valid, addAge, editReport.formData.people_involved_age.$valid,addCitizenship, editReport.formData.people_involved_citizenship.$valid,addGender,editReport.formData.people_involved_gender.$valid,addViolation,editReport.formData.people_involved_violation.$valid,addStatus, editReport.formData.people_involved_status.$valid,addType,editReport.formData.people_involved_type.$valid)" style="float: right;">Save</button>
                 </form>
             </div>
         </div>
@@ -180,7 +180,7 @@
             <input class="form-control" title='Brand' type=" text" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
             <input class="form-control" title='Model' type=" text" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
             <input class="form-control" title='Driver' type=" text" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
-            <button type="submit" class="btn btn-md btn-elegant px-2" ng-click="editReport.addVehicle(addPlateNumber, editReport.formData.vehicle_platenumber.$valid, addBrand, editReport.formData.vehicle_brand.$valid, addVehicleType, editReport.formData.vehicle_involved_type.$valid, addModel, editReport.formData.vehicle_model.$valid, addDriver, editReport.formData.vehicle_driver.$valid)" style="float: right;">SAVE</button>
+            <button type="submit" class="btn btn-md btn-rounded btn-elegant px-2" ng-click="editReport.addVehicle(addPlateNumber, editReport.formData.vehicle_platenumber.$valid, addBrand, editReport.formData.vehicle_brand.$valid, addVehicleType, editReport.formData.vehicle_involved_type.$valid, addModel, editReport.formData.vehicle_model.$valid, addDriver, editReport.formData.vehicle_driver.$valid)" style="float: right;">SAVE</button>
             </form>
         </div>
       </div>

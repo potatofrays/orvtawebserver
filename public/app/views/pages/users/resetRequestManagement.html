@@ -77,7 +77,7 @@
       </td>
     <td>
       <a href="#">
-          <button type="button" ng-click="resetRequestManagement.deleteRequest(acc.station);" ng-show="resetRequestManagement.deleteRequestAccess" class="btn btn-grey btn-sm px-2">Delete</button>
+          <i class="fa fa-trash fa-2x" ng-click="resetRequestManagement.deleteRequest(acc.station);" ng-show="resetRequestManagement.deleteRequestAccess" aria-hidden="true"></i>
       </a>
       <div ng-controller=" resetRequestCtrl as editRequest" class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog cascading-modal " role="document">

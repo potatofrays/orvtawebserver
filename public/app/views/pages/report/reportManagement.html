@@ -86,10 +86,10 @@
       <td class="tdtd">{{report.police_username}}</td>
 			<td>
         <a href="/editReport2/{{ report._id }}">
-					<button type="button" ng-show="reportManagement.generateReportAccess" class="btn btn-grey btn-sm px-2" title='Update Police Report'>Update</button>
+					  <i  ng-show="reportManagement.generateReportAccess"class="fa fa-edit fa-2x" title='Update Police Report' aria-hidden="true"></i>
 				</a>
         <a href="#">
-          <label ng-show="reportManagement.viewAccess"><strong><b>VIEW ONLY</b></strong></label>
+          <label style="font-family: Courier New; font-size: 13px;" ng-show="reportManagement.viewAccess"><strong><b>VIEW ONLY</b></strong></label>
         </a>
 			</td>
 		</tr>

@@ -124,11 +124,11 @@ $('#panel21 a').click(function (e) {
                       <td class="tdtd" style="color: black;"><b>{{addedViolation.violation_committed}}</b></td>
                       <td>
                       <a href="/editViolation/{{ addedViolation._id }}">
-                        <button type="button" class="btn btn-grey btn-sm px-2" title='Update Violationas'>Update</button>
+                        <i title='Update Violationas' class="fa fa-edit fa-2x" aria-hidden="true"></i><br>
                       </a>
                       <a href="#">
-                        <button type="button" ng-click="dataManagement.deleteViolation(addedViolation.violation_committed);" title='Delete Violationa'  class="btn btn-info mb-1 search btn-red btn-sm px-2"> Delete</button>
-              				</a>
+                        <i  ng-click="dataManagement.deleteViolation(addedViolation.violation_committed);" title='Delete Violation' class="fa fa-edit fa-2x" aria-hidden="true"></i>
+                      </a>
                       </td>
                   </tr>
               </table>
@@ -166,10 +166,10 @@ $('#panel21 a').click(function (e) {
                       <td class="tdtd" style="color: black;"><b>{{addedVehicle.vehicle_type}}</b></td>
                       <td>
                       <a href="/editVehicleType/{{ addedVehicle._id }}">
-                          <button type="button" class="btn btn-grey btn-sm px-2" title='Update Vehicle'>Update</button>
+                          <i title='Update Vehicle' class="fa fa-edit fa-2x" aria-hidden="true"></i><br>
                       </a>
                       <a href="#">
-                        <button type="button" ng-click="dataManagement.deleteVehicle(addedVehicle.vehicle_type);" title='Delete Vehicle' class="btn btn-info mb-1 search btn-red btn-sm px-2"> Delete</button>
+                        <i title='Delete Vehicle' ng-click="dataManagement.deleteVehicle(addedVehicle.vehicle_type);" class="fa fa-trash fa-2x" aria-hidden="true"></i>
                       </a>
                       </td>
                   </tr>
