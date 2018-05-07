@@ -32,6 +32,10 @@ var violationSchema = new Schema({
 
 });
 
+var stationSchema = new Schema({
+	station_municipality: {type: String}
+});
+
 //police_report Schema
 var policeReport = new Schema({
 	committed_at: {type: Date},
@@ -60,6 +64,7 @@ var People_Involved = mongoose.model('People_Involved', peopleInvolvedSchema);
 var Vehicle_Involved  = mongoose.model('Vehicle_Involved', vehicleInvolvedSchema);
 var Violation  = mongoose.model('Violation', violationSchema);
 var Vehicle  = mongoose.model('Vehicle', vehicleSchema);
+var Station  = mongoose.model('Station', stationSchema);
 
 
 module.exports = {
@@ -67,5 +72,6 @@ module.exports = {
 	People_Involved : People_Involved,
 	Vehicle_Involved : Vehicle_Involved,
 	Violation: Violation,
-	Vehicle: Vehicle
+	Vehicle: Vehicle,
+	Station: Station
 }

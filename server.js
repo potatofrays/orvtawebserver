@@ -11,14 +11,9 @@ var police =  require('./app/android/policeApi')(express.Router());
 var citizen =  require('./app/android/citizenApi')(express.Router());
 var path = require('path'); // Import path module
 var methodOverride  = require('method-override');
-var io = require('socket.io').listen(80);
+var http = require('http');
+var socketio = require('socket.io');
 
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
 
 mongoose.connect(connection.connectionString);
 app.use(morgan('dev')); // Morgan Middleware

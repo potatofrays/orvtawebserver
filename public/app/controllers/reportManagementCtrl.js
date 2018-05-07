@@ -679,6 +679,49 @@ angular.module('reportManagementController', ['reportServices'])
             }, 2000);
         }
     };
+    this.stationReg = function(stationData, valid) {
+        app.disabled = true; // Disable the form when user submits to prevent multiple requests to server
+        app.loading = true; // Activate bootstrap loading icon
+        app.errorMsg = false; // Clear errorMsg each time user submits
+
+        // If form is valid and passwords match, attempt to create user
+        if (valid) {
+            // Runs custom function that registers the user in the database
+            Report.createStation(app.stationData).then(function(data) {
+                // Check if user was saved to database successfully
+                if (data.data.success) {
+                    app.loading = false; // Stop bootstrap loading icon
+                    $scope.alert = 'alert alert-success'; // Set class for message
+                    app.successMsg = data.data.message; // If successful, grab message from JSON object and redirect to login page
+                    getStationData();
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.successMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                } else {
+                    app.loading = false; // Stop bootstrap loading icon
+                    app.disabled = false; // If error occurs, remove disable lock from form
+                    $scope.alert = 'alert alert-danger'; // Set class for message
+                    app.errorMsg = data.data.message; // If not successful, grab message from JSON object
+                    // Redirect after 2000 milliseconds (2 seconds)
+                    $timeout(function() {
+                        app.errorMsg = false; // Clear success message
+                        app.disabled = false; // Enable form for editing
+                    }, 2000);
+                }
+            });
+        } else {
+            app.disabled = false; // If error occurs, remove disable lock from form
+            app.loading = false; // Stop bootstrap loading icon
+            $scope.alert = 'alert alert-danger'; // Set class for message
+            app.errorMsg = 'Please ensure form is filled our properly'; // Display error if valid returns false
+            $timeout(function() {
+                app.errorMsg = false; // Clear success message
+                app.disabled = false; // Enable form for editing
+            }, 2000);
+        }
+    };
 
     function getViolationsData(){
     Report.getViolationsData().then(function(data){
@@ -731,6 +774,33 @@ angular.module('reportManagementController', ['reportServices'])
           });
         }
         getVehicleTypesData();
+
+
+        function getStationData(){
+        Report.getStationData().then(function(data){
+           if (data.data.success) {
+                  // Check which permissions the logged in report has
+                  if (data.data.police_permission === 'main' || data.data.police_permission === 'station') {
+                      app.stations = data.data.stations; // Assign reports from database to variable
+                      app.loading = false; // Stop loading icon
+                      app.accessDenied = false; // Show table
+                      // Check if logged in report is an admin or moderator
+                      if (data.data.police_permission === 'main') {
+
+                      } else if (data.data.police_permission === 'station') {
+
+                      }
+                  } else {
+                      app.errorMsg = 'Insufficient Permissions'; // Reject edit and delete options
+                      app.loading = false; // Stop loading icon
+                  }
+              } else {
+                  app.errorMsg = data.data.message; // Set error message
+                  app.loading = false; // Stop loading icon
+                }
+          });
+        }
+        getStationData();
     // Function: Show more results on page
     app.showMore = function(number) {
         app.showMoreError = false; // Clear error message

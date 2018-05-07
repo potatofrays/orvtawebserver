@@ -32,6 +32,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: true,
         police_permission: ['main','station']
     })
+    .when('/editStation/:id', {
+        templateUrl: 'app/views/pages/management/editStation.html',
+        controller: 'editDataCtrl',
+        controllerAs: 'editStation',
+        authenticated: true,
+        police_permission: ['main','station']
+    })
     .when('/editViolation/:id', {
         templateUrl: 'app/views/pages/management/editViolation.html',
         controller: 'editDataCtrl',

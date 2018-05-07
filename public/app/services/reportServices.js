@@ -9,6 +9,9 @@ angular.module('reportServices', [])
     reportFactory.createVehicleType = function(vehicleData) {
         return $http.post('/api/vehicles', vehicleData);
     };
+    reportFactory.createStation = function(stationData) {
+        return $http.post('/api/stations', stationData);
+    };
     // Delete a user
     reportFactory.deleteViolation = function(violation_committed) {
         return $http.delete('/api/violationdataManagement/' + violation_committed);
@@ -31,12 +34,23 @@ angular.module('reportServices', [])
     reportFactory.violationChanges = function(id) {
         return $http.put('/api/editViolation', id);
     };
+    reportFactory.getStations = function(id) {
+        return $http.get('/api/editStation/' + id);
+    };
+
+    // Edit a vehicle
+    reportFactory.stationChanges = function(id) {
+        return $http.put('/api/editStation', id);
+    };
     reportFactory.getFind = function(){
         return $http.get('/api/findReport/');
     };
 
     reportFactory.getViolationsData = function(){
         return $http.get('/api/violationdataManagement/');
+    };
+    reportFactory.getStationData = function(){
+        return $http.get('/api/stationdataManagement/');
     };
 
     reportFactory.getVehicleTypesData = function(){

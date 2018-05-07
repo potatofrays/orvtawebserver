@@ -92,57 +92,12 @@
 		<option value="Male">Male</option>
 		<option value="Female">Female</option>
 	</select>
-  <select type=" text" ng-model="editStation" placeholder="Station" style="padding-left: 15px;" class="browser-default form-control col-7 tdtd">
-    <option value="" disabled selected>Police Station</option>
-    <option value="Agno">Agno</option>
-    <option value="Aguilar">Aguilar</option>
-		<option value="Alaminos">Alaminos City</option>
-    <option value="Alcala">Alcala</option>
-    <option value="Anda">Anda</option>
-    <option value="Asingan">Asingan</option>
-    <option value="Balungao">Balungao</option>
-    <option value="Bani">Bani</option>
-    <option value="Basista">Basista</option>
-    <option value="Bautista">Bautista</option>
-    <option value="Bayambang">Bayambang</option>
-    <option value="Binalonan">Binalonan</option>
-    <option value="Binmaley">Binmaley</option>
-    <option value="Bolinao">Bolinao</option>
-    <option value="Bugallon">Bugallon</option>
-    <option value="Burgos">Burgos</option>
-    <option value="Calasiao">Calasiao</option>
-		<option value="Dagupan">Dagupan</option>
-    <option value="Dasol">Dasol</option>
-    <option value="Infanta">Infanta</option>
-    <option value="Labrador">Labrador</option>
-    <option value="Laoac">Laoac</option>
-    <option value="Lingayen">Lingayen</option>
-    <option value="Mabini">Mabini</option>
-    <option value="Malasiqui">Malasiqui</option>
-    <option value="Manaoag">Manaoag</option>
-    <option value="Mangaldan">Mangaldan</option>
-    <option value="Mangatarem">Mangatarem</option>
-    <option value="Mapandan">Mapandan</option>
-    <option value="Natividad">Natividad</option>
-    <option value="Pozorrubio">Pozorrubio</option>
-    <option value="Rosales">Rosales</option>
-		<option value="San Carlos">San Carlos City</option>
-    <option value="San Fabian">San Fabian</option>
-    <option value="San Jacinto">San Jacinto</option>
-    <option value="San Manuel" >San Manuel</option>
-    <option value="San Nicolas">San Nicolas</option>
-    <option value="San Quintin">San Quintin</option>
-    <option value="Santa Barbara">Santa Barbara</option>
-    <option value="Santa Maria">Santa Maria</option>
-    <option value="Santo Tomas">Santo Tomas</option>
-    <option value="Sison">Sison</option>
-    <option value="Sual">Sual</option>
-    <option value="Tayug">Tayug</option>
-    <option value="Umingan">Umingan</option>
-    <option value="Urbiztondo">Urbiztondo</option>
-		<option value="Urdaneta">Urdaneta City</option>
-    <option value="Villasis">Villasis</option>
- </select>
+  <div ng-controller="dataManagementCtrl as dataManagement">
+   <select type="text" id="stationChoices" ng-model="editStation" placeholder="Station" style="padding-left: 15px;" class="browser-default form-control col-7 tdtd">
+     <option value="" disabled selected>Select Station</option>
+     <option ng-repeat="station in dataManagement.stations" value="{{station.station_municipality}}">{{station.station_municipality}}</option>
+   </select>
+ </div>
  <select type=" text" ng-model="editPermission" placeholder="Permission" style="padding-left: 15px;" class="browser-default form-control col-7 tdtd">
    <option value="" disabled selected>Police User Type</option>
    <option value="user">Android User</option>

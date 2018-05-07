@@ -172,58 +172,13 @@
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
-                    <!-- Police Stations Input -->
-                    <select name="police_station" ng-model="register.regData.police_station" class="browser-default form-control col-lg">
-                     <option value="" ng-show="management.disabledOption" disabled selected>Police Station</option>
-                     <option value="Agno" ng-show="management.Agno">Agno</option>
-                     <option value="Aguilar" ng-show="management.Aguilar">Aguilar</option>
-                     <option value="Alaminos" ng-show="management.Alaminos">Alaminos City</option>
-                     <option value="Alcala" ng-show="management.Alcala">Alcala</option>
-                     <option value="Anda" ng-show="management.Anda">Anda</option>
-                     <option value="Asingan" ng-show="management.Asingan">Asingan</option>
-                     <option value="Balungao" ng-show="management.Balungao">Balungao</option>
-                     <option value="Bani" ng-show="management.Bani">Bani</option>
-                     <option value="Basista" ng-show="management.Basista">Basista</option>
-                     <option value="Bautista" ng-show="management.Bautista">Bautista</option>
-                     <option value="Bayambang" ng-show="management.Bayambang">Bayambang</option>
-                     <option value="Binalonan" ng-show="management.Binalonan">Binalonan</option>
-                     <option value="Binmaley" ng-show="management.Binmaley">Binmaley</option>
-                     <option value="Bolinao" ng-show="management.Bolinao">Bolinao</option>
-                     <option value="Bugallon" ng-show="management.Bugallon">Bugallon</option>
-                     <option value="Burgos" ng-show="management.Burgos">Burgos</option>
-                     <option value="Calasiao" ng-show="management.Calasiao">Calasiao</option>
-                     <option value="Dagupan" ng-show="management.DagupanCity">Dagupan City</option>
-                     <option value="Dasol" ng-show="management.Dasol">Dasol</option>
-                     <option value="Infanta" ng-show="management.Infanta">Infanta</option>
-                     <option value="Labrador" ng-show="management.Labrador">Labrador</option>
-                     <option value="Laoac" ng-show="management.Laoac">Laoac</option>
-                     <option value="Lingayen" ng-show="management.Lingayen">Lingayen</option>
-                     <option value="Mabini" ng-show="management.Mabini">Mabini</option>
-                     <option value="Malasiqui" ng-show="management.Malasiqui">Malasiqui</option>
-                     <option value="Manaoag" ng-show="management.Manaoag">Manaoag</option>
-                     <option value="Mangaldan" ng-show="management.Mangaldan">Mangaldan</option>
-                     <option value="Mangatarem" ng-show="management.Mangatarem">Mangatarem</option>
-                     <option value="Mapandan" ng-show="management.Mapandan">Mapandan</option>
-                     <option value="Natividad" ng-show="management.Natividad">Natividad</option>
-                     <option value="Pozorrubio" ng-show="management.Pozorrubio">Pozorrubio</option>
-                     <option value="Rosales" ng-show="management.Rosales">Rosales</option>
-                     <option value="San Carlos" ng-show="management.SanCarlos">San Carlos City</option>
-                     <option value="San Fabian" ng-show="management.SanFabian">San Fabian</option>
-                     <option value="San Jacinto" ng-show="management.SanJacinto">San Jacinto</option>
-                     <option value="San Manuel" ng-show="management.SanManuel">San Manuel</option>
-                     <option value="San Nicolas" ng-show="management.SanNicolas">San Nicolas</option>
-                     <option value="San Quintin" ng-show="management.SanQuintin">San Quintin</option>
-                     <option value="Santa Barbara" ng-show="management.SantaBarbara">Santa Barbara</option>
-                     <option value="Santa Maria" ng-show="management.SantaMaria">Santa Maria</option>
-                     <option value="Santo Tomas" ng-show="management.SantoTomas">Santo Tomas</option>
-                     <option value="Sison" ng-show="management.Sison">Sison</option>
-                     <option value="Sual" ng-show="management.Sual">Sual</option>
-                     <option value="Tayug" ng-show="management.Tayug">Tayug</option>
-                     <option value="Umingan" ng-show="management.Umingan">Umingan</option>
-                     <option value="Urbiztondo" ng-show="management.Urbiztondo">Urbiztondo</option>
-                     <option value="Urdaneta" ng-show="management.Urdaneta">Aguilar</option>
-                     <option value="Villasis" ng-show="management.Villasis">Villasis</option>
-                    </select>
+                    <div ng-controller="dataManagementCtrl as dataManagement">
+                     <select id="stationChoices" class="browser-default form-control" placeholder="Select Violation" name="police_station" ng-model="register.regData.police_station">
+                       <option value="" disabled selected>Select Station</option>
+                       <option ng-repeat="station in dataManagement.stations" value="{{station.station_municipality}}">{{station.station_municipality}}</option>
+                     </select>
+                   </div>
+      
                     <select name="police_rank" ng-model="register.regData.police_rank"  class="browser-default form-control col-lg">
                       <option value="" disabled selected>Police Rank</option>
                       <option value="PO1">PO1</option>

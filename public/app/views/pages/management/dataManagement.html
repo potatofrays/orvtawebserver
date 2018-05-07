@@ -17,6 +17,11 @@
     float: right;
     position: relative;
   }
+  .stationData{
+    width:300px;
+    float: right;
+    position: relative;
+  }
   .tdtd{
     font-family: Lato ;
   }
@@ -88,6 +93,11 @@ $('#panel21 a').click(function (e) {
 
                   </a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel23" role="tab"  style="font-family:Courier New;">ADD STATION
+
+                  </a>
+              </li>
           </ul>
       </div>
       <div class="col-md-9">
@@ -127,7 +137,7 @@ $('#panel21 a').click(function (e) {
                         <i title='Update Violationas' class="fa fa-edit fa-2x" aria-hidden="true"></i><br>
                       </a>
                       <a href="#">
-                        <i  ng-click="dataManagement.deleteViolation(addedViolation.violation_committed);" title='Delete Violation' class="fa fa-edit fa-2x" aria-hidden="true"></i>
+                        <i  ng-click="dataManagement.deleteViolation(addedViolation.violation_committed);" title='Delete Violation' class="fa fa-trash fa-2x" aria-hidden="true"></i>
                       </a>
                       </td>
                   </tr>
@@ -177,6 +187,43 @@ $('#panel21 a').click(function (e) {
           </div>
           </div>
           <!--/.Panel 2-->
+          <div class="tab-pane fade" id="panel23" role="tabpanel">
+
+          <div class="stationData">
+            <div class="show-hide-message center-block" style="width: 280px;"ng-show="dataManagement.successMsg">
+              <div class="alert alert-success center-block">{{dataManagement.successMsg}}</div>
+              </div>
+            <div class="show-hide-message center-block" ng-show="dataManagement.errorsMsg">
+              <div class="alert alert-danger">{{ dataManagement.errorMsg }}</div>
+            </div>
+            <form name="dataForm" ng-submit="dataManagement.stationReg(stationData, dataForm.$valid);" novalidate>
+              <input textclass="form-control col-lg tdtd "  name="station_municipality" ng-model="dataManagement.stationData.station_municipality">
+              <button type="submit" data-toggle="tooltip" title='Add Station Municipality'class="btn btn-elegant btn-sm">SAVE</button>
+          </form>
+          </div><br>
+            <div class="vio container-fluid">
+              <div class="md-form" ng-show="searchFilter !== undefined">
+                <p><strong>Total results: </strong>{{ (dataManagement.stations | filter: searchKeyword).length  }} &nbsp; &nbsp;<strong>Showing: </strong>{{ (dataManagement.station | filter: searchFilter | limitTo: dataManagement.limit).length  }}</p>
+              </div>
+            <!-- Table dataManagement -->
+              <table class="table table-hover table-bordered table-responsive-sm">
+              <thead class="yellow lighten-5">
+                  <tr><strong>
+                      <th class="thth"><strong>STATION MUNICIPALITY</strong></th>
+                <th class="thth"><strong>Action</strong></th>
+                  </tr>
+              </thead>
+                  <tr ng-repeat = "addedStation in dataManagement.stations | filter: searchKeyword | filter: searchFilter" >
+                      <td class="tdtd" style="color: black;"><b>{{addedStation.station_municipality}}</b></td>
+                      <td>
+                      <a href="/editStation/{{ addedStation._id }}">
+                        <i title='Update Station' class="fa fa-edit fa-2x" aria-hidden="true"></i><br>
+                      </a>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+          </div>
           </div>
       </div>
   </div>
