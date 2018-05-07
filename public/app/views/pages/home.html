@@ -2,7 +2,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRXGkNUJ7ibYPMtrqm3fEUilG9jh0vOhE"></script>
 <style>
 #map{
-  height:710px;
+  height:720px;
   width: 749px;
   float: right;
   overflow: hidden;
@@ -10,7 +10,7 @@
 }
 .containerForm{
   float: left;
-  height: auto;
+  height: 720px;
   padding-left: 30px;
   padding-right: 30px;
   width: 385px;
@@ -20,7 +20,8 @@
   position: absolute;
 }
 .tdtd{
-  font-family: Lato ;
+  font-family: Courier New;
+  font-size: 11px;
 }
 .thth{
   font-family: Josefin Slab;
@@ -48,11 +49,11 @@
   <form class="form-signin" ng-submit="main.doLogin(loginData);">
       <div class="md-form">
           <input type="text" id="defaultForm-uname" class="form-control col-lg tdtd " name="police_username" ng-model="main.loginData.police_username">
-          <label for="defaultForm-uname">Username</label>
+          <label for="defaultForm-uname" class="tdtd">Username</label>
       </div>
       <div class="md-form">
           <input type="password" class="form-control col-lg tdtd " name="police_password" ng-model="main.loginData.police_password">
-          <label for="defaultForm-pass">Your password</label>
+          <label for="defaultForm-pass" class="tdtd">Your password</label>
       </div>
       <div align="center">
           <button class="btn btn-sm btn-elegant px-3" type="submit"><i class="fa fa-home prefix"></i> Login</button>

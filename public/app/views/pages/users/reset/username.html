@@ -9,12 +9,10 @@
       <p class="h5 text-center mb-4">FORGOT USERNAME</p>
 
       <div class="md-form">
-          <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-uname"  ng-disabled="username.disabled" class="form-control" name="police_email" ng-model="username.userData.police_email" required>
-          <label for="defaultForm-uname">E-mail</label>
-      </div>
-      <div class="text-center">
-          <button class="btn btn-md btn-elegant" type="submit"><i class="fa fa-home prefix"></i>SUBMIT</button>
+        <div align="center">
+          <input type=" text" id="defaultForm-uname"  ng-disabled="username.disabled" placeholder="Enter an email" class="form-control col-5" name="police_email" ng-model="username.userData.police_email" style="padding-left: 10px;"required>
+          <button class="btn btn-md btn-elegant px-4" type="submit">SUBMIT</button>
+        </div>
       </div>
   </form>
   <!-- Form login -->
