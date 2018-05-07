@@ -193,7 +193,7 @@ app.run(['$rootScope', 'Auth', '$location', 'User', function($rootScope, Auth, $
                         if (next.$$route.police_permission[0] !== data.data.police_permission) {
                             if (next.$$route.police_permission[1] !== data.data.police_permission) {
                                 event.preventDefault(); // If at least one role does not match, prevent accessing route
-                                $location.path('/dashboard'); // Redirect to dashboard instead
+                                $location.path('/management'); // Redirect to dashboard instead
                             }
                         }
                     });
