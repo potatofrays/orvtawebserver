@@ -146,7 +146,7 @@ angular.module('addCtrl', ['geolocation', 'gservice'])
                 $scope.addAge = "";
                 $scope.addCitizenship = "";
                 $scope.addGender = "";
-                $scope.addViolation = "";
+                document.getElementById('vioChoices').value = "";
                 $scope.addStatus = "";
                 $scope.addType = "";
             });
@@ -164,7 +164,7 @@ angular.module('addCtrl', ['geolocation', 'gservice'])
         $http.put('/addVehicle', vehicleObj)
         .success(function(data){
             $scope.addPlatenumber = "";
-            $scope.addVehicleType = "";
+            document.getElementById('choices').value = "";
             $scope.addBrand = "";
             $scope.addModel = ""
             $scope.addDriver = ""
