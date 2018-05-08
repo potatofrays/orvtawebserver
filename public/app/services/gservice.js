@@ -73,7 +73,7 @@ angular.module('gservice', [])
                 var police_report = response[i];
 
                 // Create popup windows for each record
-                var  contentString = '<br><b>Thoroughfare</b>: ' + police_report.address_thoroughfare + ' <br><b>Station</b>: ' + police_report.address_municipality   + ' <br><b>Province</b>: ' + police_report.address_province  +'</p>';
+                var  contentString = '<br><b>Strret</b>: ' + police_report.address_thoroughfare + ' <br><b>Station</b>: ' + police_report.address_municipality   + ' <br><b>Province</b>: ' + police_report.address_province  +'</p>';
 
                 // Converts each of the JSON records into Google Maps Location format (Note Lat, Lng format).
                 location_coordinates.push(new Location(

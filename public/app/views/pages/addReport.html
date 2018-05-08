@@ -41,7 +41,7 @@
            <input type=" text" class="form-control"title="Province"  id='Province' placeholder="Province"  ng-model="formData.address_province" style="padding-left: 10px;" readonly>
            <input type=" text" class="form-control" id='onDuty' placeholder="On Duty"  title="Police On Duty" ng-model="formData.onDuty" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
            <div ng-controller="managementCtrl as management">
-            <select id="Username" class="browser-default form-control tdtd" title="Police Informant" placeholder="Select Police Informant" ng-model="formData.police_username">
+            <select id="Username" class="browser-default form-control tdtd" title="Police Informant" placeholder="Select Police Informant" ng-model="formData.police_username" required>
                <option value="" disabled selected>Select Police Informant</option>
               <option ng-repeat="person in management.police_users" value="{{person.police_username}}">{{person.police_username}}</option>
             </select>
@@ -198,9 +198,9 @@
                          </ul>
                        </div>
                           <input class="form-control" type=" text" ng-model="addBrand" title="Vehicle Brand" placeholder=" Brand" style="padding-left: 10px;">
-                          <input class="form-control" type=" text" ng-model="addDriver" title="Vehicle Driver" placeholder=" Driver" style="padding-left: 10px;">
                           <input class="form-control" type=" text" ng-model="addModel" title="Vehicle Model" placeholder=" Model" style="padding-left: 10px;">
-                          <button type="submit" class="btn btn-md btn-elegant" ng-click="addVehicle()">Save</button>
+                          <input class="form-control" type=" text" ng-model="addDriver" title="Vehicle Driver" placeholder=" Driver" style="padding-left: 10px;">
+                          <button type="submit" class="btn btn-md btn-rounded btn-elegant" ng-click="addVehicle()" style="float:right;">Save</button>
                         </form>
                     </div>
                 </div>
