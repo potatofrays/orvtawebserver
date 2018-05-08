@@ -193,7 +193,8 @@ module.exports = function(router){
 						if(err){
 							res.json(500, err);
 						}else{
-							res.json({ success: true, pending: pending, pending: pending.reported_at});
+							res.json(pending);
+							res.json({ success: true, pending: pending.reported_at});
 						}
 					});
 				}
