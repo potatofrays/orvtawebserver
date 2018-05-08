@@ -68,7 +68,7 @@
           <input type=" text" id="onDuty" title='Police On Duty' class="form-control col-6 tdtd" value="{{main.police_username}}" style="padding-left: 10px;" readonly>
             <input class="form-control col-6 tdtd" datetime-picker hour="12" minute='59' date-format="yyyy-MM-dd HH:mm:ss" ng-model="editCommittedAt" style="padding-left: 10px;">
             <div ng-controller="managementCtrl as management">
-             <select id="choices" class="browser-default form-control col-6 tdtd" placeholder="Select Police Informant">
+             <select id="username" class="browser-default form-control col-6 tdtd" placeholder="Select Police Informant">
                 <option value="" disabled selected>Select Police Informant</option>
                <option ng-repeat="person in management.police_users" value="{{person.police_username}}">{{person.police_username}}</option>
              </select>
