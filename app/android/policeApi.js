@@ -114,11 +114,12 @@ module.exports = function(router){
 	router.put('/fraud/:id', function(req, res){
 		models.Police_Report.findById(req.params.id, function(err,fraud){
 			fraud.report_credibility = "Fraud";
+			fraud.police_username = req.body.police_username;
 			fraud.save();
 			if (err) {
 				res.json(500,err);
 			}
-				res.json({success: true});
+				res.json({success: true,  fraud: fraud.id});
 		});
 	});
 	//fraud
