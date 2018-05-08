@@ -1453,7 +1453,7 @@ module.exports = function(router) {
               res.json('No user found');
           }else{
               if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-                      models.Vehicle.aggregate(
+                      models.Vehicle_Involved.aggregate(
                           [
                               {//$first,$sum,$push -->$group
                                   "$group":{
