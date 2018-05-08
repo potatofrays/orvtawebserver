@@ -193,8 +193,7 @@ module.exports = function(router){
 						if(err){
 							res.json(500, err);
 						}else{
-
-							res.json({ success: true, pending: pending.reported_at});
+							res.json(pending);
 						}
 					});
 				}
@@ -206,12 +205,12 @@ module.exports = function(router){
 	router.get('/display', function(req, res){
 		models.Police_Report.findOne({ _id: req.params.id})
 			.populate({path: 'people_involved_id', model:'People_Involved'})
-			.populate({path:'vehicle_id', model: 'Vehicle'})
+			.populate({path:'vehicle_id', model: 'Vehicle_Involved'})
 			.exec(function(err, report) {
     			if (err){
     				return handleError(err);
     			}else{
-     				res.json({report: report});
+     				res.json({report: report, report});
     			}
 			});
 	});
