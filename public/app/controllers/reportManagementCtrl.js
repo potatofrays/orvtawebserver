@@ -125,7 +125,7 @@ angular.module('reportManagementController', ['reportServices'])
         }
     });
     //function for button Save Changes
-    app.updateReport = function(valid, editCommittedAt, editAccidentType, editDate, editAccidentCause, editThoroughfare, editMunicipality, editProvince, editCredibility){
+    app.updateReport = function(valid, editCommittedAt, editAccidentType, editDate, editAccidentCause, editThoroughfare, editMunicipality, editProvince, editCredibility, editReported){
         if(valid){
             var reportObject = {};
             reportObject._id = $scope.showId;
@@ -136,6 +136,7 @@ angular.module('reportManagementController', ['reportServices'])
             reportObject.address_municipality = $scope.editMunicipality;
             reportObject.address_province = $scope.editProvince;
             reportObject.report_credibility = $scope.editCredibility;
+            reportObject.police_reported_at = $scope.editReported;
         //userObject - to validate first the field to be updated then use route
         // to use the route created for editting
         Report.reportChanges(reportObject).then(function(data){
