@@ -67,7 +67,7 @@
       <td class="tdtd">{{ report.address_thoroughfare }}</td>
       <td class="tdtd">{{ report.address_municipality }}</td>
       <td class="tdtd">{{ report.address_province }}</td>
-      <td class="tdtd">{{ report.reported_at | date:'MMM d y h: mma'}}</td>
+      <td class="tdtd">{{ report.citizen_reported_at | date:'MMM d y h: mma'}}</td>
       <td class="tdtd">{{ report.report_credibility }}</td>
 			<td class="tdtd">
         <a href="/editReport/{{ report._id }}">
