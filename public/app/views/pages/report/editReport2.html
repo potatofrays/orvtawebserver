@@ -65,7 +65,7 @@
         <br><button class="btn btn-elegant btn-md btn-rounded px-3" type="submit">Save Changes</button>
 		</form>
   </div>
-  <div ng-controller=" editReportCtrl as editReport" class="modal fade" id="modalPeople" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div ng-controller=" editReport2Ctrl as editReport" class="modal fade" id="modalPeople" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog cascading-modal " role="document">
      <!--Content-->
         <div class="modal-content">
@@ -80,7 +80,7 @@
               <form name= "editReport.formData">
                 <input type="hidden" ng-model="showIdPeople" readonly>
                 <div class="md-form">
-                <input class="form-control" type=" text" title="People Involved Name" ng-model="addName" name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" title='Name' placeholder=" Name" style="padding-left: 10px;">
+                <input class="form-control" type=" text" title="People Involved Name" ng-model="addName" name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" title='Name' placeholder=" Name" style="padding-left: 10px;" required>
                 <ul ng-show="(!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.pattern) || (!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.minlength) || (!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.maxlength)"
                 class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
                     <li class="decor">Must have a space in between first and last name</li>
@@ -130,7 +130,7 @@
         </div>
     </div>
   </div>
-  <div ng-controller=" editReportCtrl as editReport" class="modal fade" id="modalVehicle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div ng-controller=" editReport2Ctrl as editReport" class="modal fade" id="modalVehicle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog cascading-modal " role="document">
    <!--Content-->
     <div class="modal-content">
@@ -145,7 +145,7 @@
           <form name= "editReport.formData">
             <input type="hidden" ng-model="showIdVehicle" readonly>
             <div ng-controller="dataManagementCtrl as dataManagement">
-             <select id="choices" class="browser-default form-control" title="Vehicle Type" placeholder="Select Vehicle Type" ng-model="addVehicleType">
+             <select id="choices" class="browser-default form-control" title="Vehicle Type" placeholder="Select Vehicle Type" ng-model="addVehicleType" required>
                <option value="" disabled selected>Select Vehicle Type</option>
                <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
              </select>

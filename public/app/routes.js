@@ -128,7 +128,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
     // Route: Edit a User
     .when('/editReport2/:id', {
         templateUrl: 'app/views/pages/report/editReport2.html',
-        controller: 'editReportCtrl',
+        controller: 'editReport2Ctrl',
         controllerAs: 'editReport',
         authenticated: true,
         police_permission: ['station']

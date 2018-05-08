@@ -56,7 +56,7 @@ angular.module('reportServices', [])
         return $http.get('/api/vehicledataManagement/');
     };
   //get info
-     reportFactory.getEditedReports = function(id){
+     reportFactory.getReports = function(id){
          return $http.get('/api/editReport2/' +id);
      }
      //edit
@@ -64,7 +64,7 @@ angular.module('reportServices', [])
          return $http.put('/api/editReport2', id);
      }
      //get info
-    reportFactory.getReports = function(id){
+    reportFactory.getEditedReports = function(id){
         return $http.get('/api/editReport/' +id);
     }
     //edit

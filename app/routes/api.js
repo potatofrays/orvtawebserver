@@ -809,7 +809,7 @@ module.exports = function(router) {
       models.Police_Report.findById(req.params.id, function(err,report){
           if(err){
               res.json(500,err);
-          }else{
+          } else {
               res.json({success: true, report: report});
           }
       });
@@ -908,13 +908,13 @@ module.exports = function(router) {
             addVehicle.vehicle_model = req.body.vehicle_model;
             addVehicle.vehicle_driver = req.body.vehicle_driver;
             addVehicle.save();
-            if(err){
-                 res.json(500, err);
-             } else if (vehicle){
-                vehicle.vehicle_id.push(addVehicle);
-                vehicle.save();
-                res.json({success:true, message: 'Sa wakas'});
-             }
+              if(err){
+                   res.json(500, err);
+               } else if (vehicle){
+                  vehicle.vehicle_id.push(addVehicle);
+                  vehicle.save();
+                  res.json({success:true, message: 'Added Successfully'});
+               }
           });
         }
     });

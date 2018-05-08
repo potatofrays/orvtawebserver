@@ -25,7 +25,7 @@
     <div class="show-hide-message" ng-show="editReport.errorMsg">
     	<div class="alert alert-danger center-block">{{ editReport.errorMsg }}</div>
     </div>
-  	<form name="editReport.formData" ng-submit="editReport.updateCitizenReport(editCommittedAt, editReport.formData.committed_at, editAccidentType, editReport.formData.accident_type.$valid, editAccidentCause, editReport.formData.accident_cause.$valid, editThoroughfare, editReport.formData.address_thoroughfare.$valid, editMunicipality, editReport.formData.address_municipality.$valid, editProvince, editReport.formData.address_province.$valid)">
+  	<form name="editReport.formData" ng-submit="editReport.updateCitizenReport(editCommittedAt, editAccidentType, editAccidentCause, editThoroughfare, editMunicipality, editProvince)">
         <input type="hidden" ng-model="showId" readonly>
         <input list="accidentTypes" name="accidentType" title='Accident Type' placeholder="Accident Type" title='Accident Type' ng-model="editAccidentType" style="padding-left: 20px;" class="form-control col-6 tdtd">
          <datalist id="accidentTypes">
@@ -100,7 +100,7 @@
               <form name= "editReport.formData">
                 <input type="hidden" ng-model="showIdPeople" readonly>
                 <div class="md-form">
-                <input class="form-control" type=" text" title="People Involved Name" ng-model="addName" name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" title='Name' placeholder=" Name" style="padding-left: 10px;">
+                <input class="form-control" type=" text" title="People Involved Name" ng-model="addName" name="people_involved_name" ng-pattern="/^[a-zA-Z\s]+$/" ng-minlength="3" ng-maxlength="20" title='Name' placeholder=" Name" style="padding-left: 10px;" required>
                 <ul ng-show="(!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.pattern) || (!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.minlength) || (!editReport.formData.people_involved_name.$pristine && editReport.formData.people_involved_name.$error.maxlength)"
                 class="help-block" style="color: red; font-size: 11px; font-family: Courier New;">
                     <li class="decor">Must have a space in between first and last name</li>
@@ -165,7 +165,7 @@
           <form name= "editReport.formData">
             <input type="hidden" ng-model="showIdVehicle" readonly>
             <div ng-controller="dataManagementCtrl as dataManagement">
-             <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" title="Vehicle Type" ng-model="addVehicleType">
+             <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" title="Vehicle Type" ng-model="addVehicleType" required>
                 <option value="" disabled selected>Select Vehicle Type</option>
                <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
              </select>
