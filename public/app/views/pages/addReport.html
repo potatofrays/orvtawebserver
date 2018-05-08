@@ -190,7 +190,7 @@
               <input type="hidden" ng-model="showIdVehicle" readonly>
               <div ng-controller="dataManagementCtrl as dataManagement">
                <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" title="Vehicle Type" ng-model="addVehicleType" required>
-                  <option value="Unknown" disabled selected>Select Vehicle Type</option>
+                  <option value="" disabled selected>Select Vehicle Type</option>
                  <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
                </select>
              </div>
