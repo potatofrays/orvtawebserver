@@ -1196,404 +1196,392 @@ module.exports = function(router) {
     });
 
     router.get('/fraud', function(req,res){
-      models.Police_Report.find({report_credibility:"Fraud"},function(err, fraud){
-          if (err) {
-              res.json(500, err);
-          }else{
-              res.json({success:true, fraud:fraud});
-          }
-      })
-  });
-
- //all factual
- router.get('/factual', function(req,res){
-      models.Police_Report.find({report_credibility:"Factual"},function(err, factual){
-          if (err) {
-              res.json(500, err);
-          }else{
-              res.json({success:true, factual:factual});
-          }
-      })
-  });
-
-  //all station
-  router.get('/station', function(req, res){
-      police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
-      if (err) {
-          res.json(500,err);
-      }else{
-          if (!permission) {
-              res.json('No user found');
-          }else{
-              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-                      models.Police_Report.aggregate(
-                          [
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$address_municipality",//expression what to count
-                                      "address_municipality":{"$first": "$address_municipality"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "address_municipality":"$address_municipality",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                              ]
-                          ).exec(function(err, station){
-                          if(err){
-                              res.json(500, err);
-                          }else if(station){
-                              res.json({success:true, station: station});
-                          }
-                      })
-              }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
-                   models.Police_Report.aggregate(
-                          [
-                              { $match: {address_municipality: req.decoded.police_station} },
-
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$address_municipality",//expression what to count
-                                      "address_municipality":{"$first": "$address_municipality"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "address_municipality":"$address_municipality",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                              ]
-                          ).exec(function(err, station){
-                          if(err){
-                              res.json(500, err);
-                          }else if(station){
-                              res.json({success:true, station: station});
-                          }
-                      })
-              }
-          }
-      }
-  })
-});
-  //all accident type
-  router.get('/accidentType', function(req, res){
-      police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
-      if (err) {
-          res.json(500,err);
-      }else{
-          if (!permission) {
-              res.json('No user found');
-          }else{
-              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-
-                  models.Police_Report.aggregate(
-                                  [
-                                      {//$first,$sum,$push -->$group
-                                              "$group":{
-                                                  "_id":"$accident_type",//expression what to count
-                                                  "accident_type":{"$first": "$accident_type"},//first level
-                                                  "count":{"$sum": 1}//counts what is in the expression
-                                              }
-                                          },
-                                              {"$group":{
-                                                  "_id":"$id",//don't remove
-                                                  "counts":{
-                                                      "$push":{//$what to display
-                                                          "accident_type":"$accident_type",
-                                                          "number":"$count"
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                  ]
-                              )
-                      .exec(function(err, type){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(type){
-                                      res.json({success:true, type});
-                                  }
-                              })
-              }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
-
-                   models.Police_Report.aggregate(
-                                  [
-                                      { $match: {address_municipality: req.decoded.police_station} },
-
-                                      {//$first,$sum,$push -->$group
-                                              "$group":{
-                                                  "_id":"$accident_type",//expression what to count
-                                                  "accident_type":{"$first": "$accident_type"},//first level
-                                                  "count":{"$sum": 1}//counts what is in the expression
-                                              }
-                                          },
-                                              {"$group":{
-                                                  "_id":"$id",//don't remove
-                                                  "counts":{
-                                                      "$push":{//$what to display
-                                                          "accident_type":"$accident_type",
-                                                          "number":"$count"
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                  ]
-                              )
-                      .exec(function(err, type){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(type){
-                                      res.json({success:true, type});
-                                  }
-                              })
-                }
+    police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else {
+           if (!permission) {
+               res.json('No user found');
+           } else {
+               if (permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                  models.Police_Report.find({report_credibility:"Fraud"},function(err, fraud){
+                       if (err) {
+                           res.json(500, err);
+                       }else{
+                           res.json({success:true, fraud:fraud});
+                       }
+                    })
+               } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                    models.Police_Report.find({report_credibility:"Fraud", address_municipality: req.decoded.police_station},function(err, fraud){
+                       if (err) {
+                           res.json(500, err);
+                       }else{
+                           res.json({success:true, fraud:fraud});
+                       }
+                   })
+                 }
+             }
+         }
+     })
+   });
+  //all factual
+  router.get('/factual', function(req,res){
+     police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else {
+           if (!permission) {
+               res.json('No user found');
+           } else {
+               if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                  models.Police_Report.find({report_credibility:"Factual"},function(err, factual){
+                     if (err) {
+                         res.json(500, err);
+                     }else{
+                         res.json({success:true, factual:factual});
+                     }
+                 })
+               } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                  models.Police_Report.find({report_credibility:"Factual", address_municipality: req.decoded.police_station},function(err, factual){
+                     if (err) {
+                         res.json(500, err);
+                     } else{
+                         res.json({success:true, factual:factual});
+                     }
+                  })
+               }
             }
-        }
-    })
-  })
+         }
+     })
+   });
 
-
-   //all accident cause
-  router.get('/accidentCause', function(req, res){
-      police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
-      if (err) {
-          res.json(500,err);
-      }else{
-          if (!permission) {
-              res.json('No user found');
-          }else{
-              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-                      models.Police_Report.aggregate(
-                          [
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$accident_cause",//expression what to count
-                                      "accident_cause":{"$first": "$accident_cause"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "accident_cause":"$accident_cause",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                          .exec(function(err, cause){
-                                      if(err){
-                                          res.json(500, err);
-                                      }else if(cause){
-                                          res.json({success:true, cause});
-                                      }
-                                  })
-              } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+   //all station
+   router.get('/station', function(req, res){
+    police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else {
+           if (!permission) {
+               res.json('No user found');
+           } else {
+               if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                 models.Police_Report.aggregate(
+                     [
+                         {//$first,$sum,$push -->$group
+                             "$group":{
+                                 "_id":"$address_municipality",//expression what to count
+                                 "address_municipality":{"$first": "$address_municipality"},//first level
+                                 "count":{"$sum": 1}//counts what is in the expression
+                             }
+                         },
+                             {"$group":{
+                                 "_id":"$id",//don't remove
+                                 "counts":{
+                                     "$push":{//$what to display
+                                         "address_municipality":"$address_municipality",
+                                         "number":"$count"
+                                     }
+                                 }
+                             }
+                         }
+                         ]
+                     ).exec(function(err, station){
+                     if(err){
+                         res.json(500, err);
+                     }else if(station){
+                         res.json({success:true, station: station});
+                     }
+                 })
+               } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
                   models.Police_Report.aggregate(
-                          [
+                     [
+                         { $match: {address_municipality: req.decoded.police_station} },
 
-                              { $match: {address_municipality: req.decoded.police_station} },
+                         {//$first,$sum,$push -->$group
+                             "$group":{
+                                 "_id":"$address_municipality",//expression what to count
+                                 "address_municipality":{"$first": "$address_municipality"},//first level
+                                 "count":{"$sum": 1}//counts what is in the expression
+                             }
+                         },
+                             {"$group":{
+                                 "_id":"$id",//don't remove
+                                 "counts":{
+                                     "$push":{//$what to display
+                                         "address_municipality":"$address_municipality",
+                                         "number":"$count"
+                                     }
+                                 }
+                             }
+                         }
+                         ]
+                       ).exec(function(err, station){
+                       if(err){
+                           res.json(500, err);
+                       }else if(station){
+                           res.json({success:true, station: station});
+                       }
+                   })
+                 }
+             }
+         }
+     })
+   });
+   //all accident type
+   router.get('/accidentType', function(req, res){
+    police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else{
+           if (!permission) {
+               res.json('No user found');
+           } else {
+            if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                  models.Police_Report.aggregate(
+                     [
+                         {//$first,$sum,$push -->$group
+                           "$group":{
+                             "_id":"$accident_type",//expression what to count
+                             "accident_type":{"$first": "$accident_type"},//first level
+                             "count":{"$sum": 1}//counts what is in the expression
+                           }
+                         },
+                         {"$group":{
+                           "_id":"$id",//don't remove
+                           "counts":{
+                             "$push":{//$what to display
+                               "accident_type":"$accident_type",
+                               "number":"$count"
+                             }
+                           }
+                         }
+                       }
+                     ]
+                    )
+                   .exec(function(err, type){
+                     if(err){
+                         res.json(500, err);
+                     }else if(type){
+                         res.json({success:true, type});
+                     }
+                 })
+               }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                  models.Police_Report.aggregate(
+                         [
+                           { $match: {address_municipality: req.decoded.police_station} },
 
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$accident_cause",//expression what to count
-                                      "accident_cause":{"$first": "$accident_cause"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "accident_cause":"$accident_cause",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                          .exec(function(err, cause){
-                                      if(err){
-                                          res.json(500, err);
-                                      }else if(cause){
-                                          res.json({success:true, cause});
-                                      }
-                                  })
+                           {//$first,$sum,$push -->$group
+                                 "$group":{
+                                     "_id":"$accident_type",//expression what to count
+                                     "accident_type":{"$first": "$accident_type"},//first level
+                                     "count":{"$sum": 1}//counts what is in the expression
+                                 }
+                               },
+                                 {"$group":{
+                                     "_id":"$id",//don't remove
+                                     "counts":{
+                                         "$push":{//$what to display
+                                             "accident_type":"$accident_type",
+                                             "number":"$count"
+                                         }
+                                     }
+                                 }
+                               }
+                         ]
+                       )
+                     .exec(function(err, type){
+                       if(err){
+                           res.json(500, err);
+                       }else if(type){
+                           res.json({success:true, type});
+                       }
+                   })
+                 }
+             }
+         }
+     })
+   })
 
 
-                }
-            }
-        }
-    })
-  });
-  //all vehicle type
-  router.get('/vehicleType', function(req, res){
-      police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
-      if (err) {
-          res.json(500,err);
-      }else{
-          if (!permission) {
-              res.json('No user found');
-          }else{
-              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-                      models.Vehicle_Involved.aggregate(
-                          [
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$vehicle_involve_type",//expression what to count
-                                      "vehicle_type":{"$first": "$vehicle_involve_type"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "vehicle_type":"$vehicle_involve_type",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                      .exec(function(err, vehicleType){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(vehicleType){
-                                      res.json({success:true, vehicleType});
-                                  }
-                              })
-              }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
-                   models.Vehicle.aggregate(
-                          [
+    //all accident cause
+   router.get('/accidentCause', function(req, res){
+       police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else{
+           if (!permission) {
+               res.json('No user found');
+           } else{
+               if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                       models.Police_Report.aggregate(
+                           [
+                               {//$first,$sum,$push -->$group
+                                   "$group":{
+                                       "_id":"$accident_cause",//expression what to count
+                                       "accident_cause":{"$first": "$accident_cause"},//first level
+                                       "count":{"$sum": 1}//counts what is in the expression
+                                   }
+                               },
+                                   {"$group":{
+                                       "_id":"$id",//don't remove
+                                       "counts":{
+                                           "$push":{//$what to display
+                                               "accident_cause":"$accident_cause",
+                                               "number":"$count"
+                                           }
+                                       }
+                                   }
+                               }
+                           ]
+                       )
+                      .exec(function(err, cause){
+                     if(err){
+                         res.json(500, err);
+                     }else if(cause){
+                         res.json({success:true, cause});
+                     }
+                 })
+               } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                   models.Police_Report.aggregate(
+                           [
 
                                { $match: {address_municipality: req.decoded.police_station} },
 
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$vehicle_type",//expression what to count
-                                      "vehicle_type":{"$first": "$vehicle_type"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "vehicle_type":"$vehicle_type",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                      .exec(function(err, vehicleType){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(vehicleType){
-                                      res.json({success:true, vehicleType});
-                                  }
-                              })
-              }
-          }
-      }
-  })
-});
+                               {//$first,$sum,$push -->$group
+                                   "$group":{
+                                       "_id":"$accident_cause",//expression what to count
+                                       "accident_cause":{"$first": "$accident_cause"},//first level
+                                       "count":{"$sum": 1}//counts what is in the expression
+                                   }
+                               },
+                                   {"$group":{
+                                       "_id":"$id",//don't remove
+                                       "counts":{
+                                           "$push":{//$what to display
+                                               "accident_cause":"$accident_cause",
+                                               "number":"$count"
+                                           }
+                                       }
+                                   }
+                               }
+                           ]
+                       )
+                      .exec(function(err, cause){
+                         if(err){
+                             res.json(500, err);
+                         }else if(cause){
+                             res.json({success:true, cause});
+                         }
+                     })
+                 }
+             }
+         }
+     })
+   });
+   //all vehicle type
+   router.get('/vehicleType', function(req, res){
+       police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       }else{
+           if (!permission) {
+               res.json('No user found');
+           }else{
+               if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+                       models.Police_Report.aggregate(
+                       [
 
-  //all violation
-  router.get('/violation', function(req, res){
-      police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
-      if (err) {
-          res.json(500,err);
-      }else{
-          if (!permission) {
-              res.json('No user found');
-          }else{
-              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
-                      models.People_Involved.aggregate(
-                          [
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$people_involved_violation",//expression what to count
-                                      "people_involved_violation":{"$first": "$people_involved_violation"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "people_involved_violation":"$people_involved_violation",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                      .exec(function(err, violation){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(violation){
-                                      res.json({success:true, violation});
-                                  }
-                              })
-              }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
-                  models.People_Involved.aggregate(
-                          [
-                              { $match: {address_municipality: req.decoded.police_station} },
+                         {$unwind:"$vehicle_id" },
+                          {$lookup:{ from:"vehicle_involveds",
+                          localField:"vehicle_id",
+                          foreignField:"_id",as:"ref"}
+                          }, {$group:{_id:"$ref.vehicle_involved_type",
+                          count:{$sum:1}}},{$unwind:"$_id"}
+                      ]
+                    )
+                   .exec(function(err, vehicleType){
+                     if(err){
+                         res.json(500, err);
+                     }else if(vehicleType){
+                         res.json({success:true, vehicleType});
+                     }
+                 })
+               }else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                    models.Police_Report.aggregate(
+                       [
+                         {$match:{ address_municipality: req.decoded.police_station} },
+                         {$unwind:"$vehicle_id" },
+                          {$lookup:{ from:"vehicle_involveds",
+                          localField:"vehicle_id",
+                          foreignField:"_id",as:"ref"}
+                          }, {$group:{_id:"$ref.vehicle_involved_type",
+                          count:{$sum:1}}},{$unwind:"$_id"}
+                        ]
+                       )
+                       .exec(function(err, vehicleType){
+                       if(err){
+                           res.json(500, err);
+                       }else if(vehicleType){
+                           res.json({success:true, vehicleType});
+                       }
+                   })
+               }
+           }
+       }
+   })
+ });
 
-                              {//$first,$sum,$push -->$group
-                                  "$group":{
-                                      "_id":"$people_involved_violation",//expression what to count
-                                      "people_involved_violation":{"$first": "$people_involved_violation"},//first level
-                                      "count":{"$sum": 1}//counts what is in the expression
-                                  }
-                              },
-                                  {"$group":{
-                                      "_id":"$id",//don't remove
-                                      "counts":{
-                                          "$push":{//$what to display
-                                              "people_involved_violation":"$people_involved_violation",
-                                              "number":"$count"
-                                          }
-                                      }
-                                  }
-                              }
-                          ]
-                      )
-                      .exec(function(err, violation){
-                                  if(err){
-                                      res.json(500, err);
-                                  }else if(violation){
-                                      res.json({success:true, violation});
-                                  }
-                              })
-
-              }
-          }
-      }
-  })
-});
+   //all violation
+   router.get('/violation', function(req, res){
+    police_user.findOne({police_username: req.decoded.police_username}, function(err, permission){
+       if (err) {
+           res.json(500,err);
+       } else {
+           if (!permission) {
+               res.json('No user found');
+           } else {
+               if (permission.police_permission === "main" && permission.police_station === req.decoded.police_station) {
+                    models.Police_Report.aggregate(
+                         [
+                           {$unwind:"$people_involved_id" },
+                            {$lookup:{ from:"people_involveds",
+                            localField:"people_involved_id",
+                            foreignField:"_id",as:"ref"}
+                            }, {$group:{_id:"$ref.people_involved_violation",
+                            count:{$sum:1}}},{$unwind:"$_id"}
+                         ]
+                       )
+                       .exec(function(err, violation){
+                       if(err){
+                           res.json(500, err);
+                       } else if(violation){
+                           res.json({success:true, violation});
+                       }
+                   })
+               } else if(permission.police_permission === "station" && permission.police_station === req.decoded.police_station){
+                   models.Police_Report.aggregate(
+                         [
+                           {$match:{ address_municipality: req.decoded.police_station} },
+                           {$unwind:"$people_involved_id" },
+                            {$lookup:{ from:"people_involveds",
+                            localField:"people_involved_id",
+                            foreignField:"_id",as:"ref"}
+                            }, {$group:{_id:"$ref.people_involved_violation",
+                            count:{$sum:1}}},{$unwind:"$_id"}
+                         ]
+                       )
+                       .exec(function(err, violation){
+                       if(err){
+                           res.json(500, err);
+                       }else if(violation){
+                           res.json({success:true, violation});
+                       }
+                   })
+                 }
+             }
+         }
+     })
+   });
 
     router.post('/violations', function(req, res) {
         var vio = new models.Violation(); // Create new User object

@@ -9,7 +9,7 @@
   .left{
     float: left;
     width: 300px;
-    margin-left: 25px;
+    margin-left: 25psx;
     clear: left;
   }
   .right{
@@ -44,7 +44,7 @@
   overflow: auto;
   font-family: Lato;
 }
-#annually{
+#annual{
   padding: 20px 20px 20px 20px;
   background-color: #f1f1f1;
   width: 660px;
@@ -119,10 +119,10 @@
           <th><b>NUMBER</b></th>
         </tr>
       </thead>
-      <tbody ng-repeat="vehicleType in generate.vehicleType">
-        <tr ng-repeat="vehicle in vehicleType.counts ">
-          <td>{{vehicle.vehicle_type}}</td>
-          <td>{{vehicle.number}}</td>
+      <tbody>
+        <tr ng-repeat="vehicleType in generate.vehicleType | filter:{_id:'!!'}">
+          <td>{{vehicleType._id}}</td>
+          <td>{{vehicleType.count}}</td>
         </tr>
       </tbody>
       </table>
@@ -138,10 +138,11 @@
           <th><b>NUMBER</b></th>
         </tr>
       </thead>
-      <tbody ng-repeat="violations in generate.violation">
-        <tr ng-repeat="violation in violations.counts ">
-          <td>{{violation.people_involved_violation}}</td>
-          <td>{{violation.number}}</td>
+      <tbody >
+        <tr ng-repeat="violations in generate.violation | filter:{_id:'!!'}">
+          <td>{{violations._id}}</td>
+          <td>{{violations.count}}</td>
+          <td></td>
         </tr>
       </tbody>
       </table>
@@ -158,8 +159,8 @@
           <th><b>NUMBER</b></th>
         </tr>
       </thead>
-      <tbody ng-repeat="accidentType in generate.type">
-        <tr ng-repeat="type in accidentType.counts ">
+      <tbody ng-repeat="accidentType in generate.type ">
+        <tr ng-repeat="type in accidentType.counts | filter:{accident_type:'!!'}">
           <td>{{type.accident_type}}</td>
           <td>{{type.number}}</td>
         </tr>
@@ -177,7 +178,7 @@
         </tr>
       </thead>
       <tbody ng-repeat="accidentCause in generate.cause">
-        <tr ng-repeat="cause in accidentCause.counts">
+        <tr ng-repeat="cause in accidentCause.counts | filter:{accident_cause:'!!'}">
           <td>{{cause.accident_cause}}</td>
           <td>{{cause.number}}</td>
         </tr>
@@ -185,17 +186,17 @@
       </table>
   </div>
 
-  <div id="annually">
-    <center><h5><strong>Annually Report</strong></h5></center>
+  <div id="annual">
+    <center><h5><strong>Total Number of VTA Reports</strong></h5></center>
       <table class="table table-hover">
       <thead>
         <tr >
           <th><b>MUNICIPALITY</b></th>
-          <th><b>NUMBER</b></th>
+          <th><b>NUMBER OF ACCIDENTS</b></th>
         </tr>
       </thead>
       <tbody ng-repeat="generates in generate.station">
-        <tr ng-repeat="rep in generates.counts">
+        <tr ng-repeat="rep in generates.counts | filter:{address_municipality:'!!'}">
           <td>{{rep.address_municipality}}</td>
           <td>{{rep.number}}</td>
         </tr>
