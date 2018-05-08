@@ -768,7 +768,7 @@ module.exports = function(router) {
                              if (!police_reports) {
                                  res.json({ success: false, message: 'No report found' }); // Return error
                              } else {
-                               models.Police_Report.find({ $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}},  {report_credibility: { $ne: 'Already Reported'}}]})
+                               models.Police_Report.find({ $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}, {report_credibility: { $ne: 'Already Reported'}}]})
                                .populate({path:"people_involved_id", model:"People_Involved"})
                                .populate({path:"vehicle_id", model:"Vehicle_Involved"})
                                .exec(function(err,police_reports){
@@ -784,7 +784,7 @@ module.exports = function(router) {
                              if (!police_reports) {
                                  res.json({ success: false, message: 'No report found' }); // Return error
                              } else {
-                                 models.Police_Report.find({address_municipality: req.decoded.police_station, $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}]})
+                                 models.Police_Report.find({address_municipality: req.decoded.police_station, $and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}, {report_credibility: { $ne: 'Already Reported'}}]})
                                  .populate({path:"people_involved_id", model:"People_Involved"})
                                  .populate({path:"vehicle_id", model:"Vehicle_Involved"})
                                  .exec(function(err,police_reports){
