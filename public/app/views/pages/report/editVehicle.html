@@ -26,22 +26,22 @@
   <form name= "editVehicle.formData" ng-submit="editVehicle.updateVehicle(addPlateNumber, editVehicle.formData.vehicle_platenumber.$valid, addBrand, editVehicle.formData.vehicle_brand.$valid, addVehicleType, editVehicle.formData.vehicle_involved_type.$valid, addModel, editVehicle.formData.vehicle_model.$valid, addDriver, editVehicle.formData.vehicle_driver.$valid)">
     <input type="hidden" ng-model="showId" style="padding-left: 10px;" readonly>
     <div ng-controller="dataManagementCtrl as dataManagement">
-     <select id="choices" class="browser-default form-control col-6" placeholder="Select Vehicle Type" ng-model="addVehicleType">
+     <select id="choices" class="browser-default form-control col-6" placeholder="Select Vehicle Type" title="Vehicle Type" ng-model="addVehicleType">
        <option value="" disabled selected>Select Vehicle Type</option>
        <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
      </select>
    </div>
     <div class="md-form">
-    <input class="form-control col-6 tdtd" title='Vehicle Plate Number' name="vehicle_platenumber" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber"type=" text" ng-model="addPlateNumber" placeholder="Plate Number" style="padding-left: 10px;">
+    <input class="form-control col-6 tdtd" title='Vehicle Plate Number' title="Vehicle Number" name="vehicle_platenumber" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber"type=" text" ng-model="addPlateNumber" placeholder="Plate Number" style="padding-left: 10px;">
     <ul ng-show="(!editVehicle.formData.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.pattern) || (!editVehicle.formData.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
        <li class="decor">Only upper case letters and numbers</li>
        <li class="decor">Must not contain special characters</li>
        <li class="decor">Must be at least 7 characters but no more than 8</li>
      </ul>
     </div>
-    <input class="form-control col-6 tdtd" title='Vehicle Brand' type=" text" ng-model="addBrand" placeholder="Brand" style="padding-left: 10px;">
-    <input class="form-control col-6 tdtd" title='Vehicle Model' type=" text" ng-model="addModel" placeholder="Model" style="padding-left: 10px;">
-      <input class="form-control col-6 tdtd" title='Vehicle Driver' type=" text" ng-model="addDriver" placeholder=" Driver" 'Vehicle Driver' style="padding-left: 10px;">
+    <input class="form-control col-6 tdtd" title='Vehicle Brand' type=" text" title="Vehicle Brand" ng-model="addBrand" placeholder="Brand" style="padding-left: 10px;">
+    <input class="form-control col-6 tdtd" title='Vehicle Model' type=" text" title="Vehicle Model"  ng-model="addModel" placeholder="Model" style="padding-left: 10px;">
+      <input class="form-control col-6 tdtd" title='Vehicle Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" 'Vehicle Driver' style="padding-left: 10px;">
     <button type="submit" class="btn btn-md btn-elegant btn-rounded px-2"> SAVE CHANGES</button>
     </form>
 </div>
