@@ -190,10 +190,11 @@
               <input type="hidden" ng-model="showIdVehicle" readonly>
               <div ng-controller="dataManagementCtrl as dataManagement">
                <select id="choices" class="browser-default form-control" placeholder="Select Vehicle Type" title="Vehicle Type" ng-model="addVehicleType" required>
-                  <option value="" disabled selected>Select Vehicle Type</option>
+                  <option value="Unknown" disabled selected>Select Vehicle Type</option>
                  <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
                </select>
              </div>
+               <input class="form-control" title='Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
               <div class="md-form">
               <input class="form-control" type=" text" name="vehicle_platenumber" title="Vehicle Plate Number" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber" placeholder=" Plate Number" style="padding-left: 10px;">
               <ul ng-show="(!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.pattern) || (!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.minlength) || (!editForm.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
@@ -204,8 +205,7 @@
               </div>
               <input class="form-control" title='Brand' type=" text" title="Vehicle Brand" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
               <input class="form-control" title='Model' type=" text" title="Vehicle Model" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
-              <input class="form-control" title='Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;" required>
-                <button type="submit" class="btn btn-md btn-rounded btn-elegant" ng-disabled="editForm.formData.$invalid" ng-click="addVehicle()" style="float: right;">Save</button>
+              <button type="submit" class="btn btn-md btn-rounded btn-elegant" ng-disabled="editForm.formData.$invalid" ng-click="addVehicle()" style="float: right;">Save</button>
               </form>
           </div>
       </div>

@@ -31,6 +31,7 @@
        <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
      </select>
    </div>
+     <input class="form-control col-6 tdtd" title='Vehicle Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder='Vehicle Driver' style="padding-left: 10px;">
     <div class="md-form">
     <input class="form-control col-6 tdtd" title='Vehicle Plate Number' title="Vehicle Number" name="vehicle_platenumber" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber"type=" text" ng-model="addPlateNumber" placeholder="Plate Number" style="padding-left: 10px;">
     <ul ng-show="(!editVehicle.formData.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.pattern) || (!editVehicle.formData.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && editVehicle.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
@@ -41,7 +42,6 @@
     </div>
     <input class="form-control col-6 tdtd" title='Vehicle Brand' type=" text" title="Vehicle Brand" ng-model="addBrand" placeholder="Brand" style="padding-left: 10px;">
     <input class="form-control col-6 tdtd" title='Vehicle Model' type=" text" title="Vehicle Model"  ng-model="addModel" placeholder="Model" style="padding-left: 10px;">
-      <input class="form-control col-6 tdtd" title='Vehicle Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" 'Vehicle Driver' style="padding-left: 10px;">
     <button type="submit" class="btn btn-md btn-elegant btn-rounded px-2"> SAVE CHANGES</button>
     </form>
 </div>

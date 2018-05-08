@@ -150,6 +150,7 @@
                <option ng-repeat="vehicles in dataManagement.vehicles" value="{{vehicles.vehicle_type}}">{{vehicles.vehicle_type}}</option>
              </select>
            </div>
+           <input class="form-control" title='Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
             <div class="md-form">
             <input class="form-control" type=" text" title="Vehicle Plate Number" name="vehicle_platenumber" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber" placeholder=" Plate Number" style="padding-left: 10px;">
             <ul ng-show="(!editReport.formData.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.pattern) || (!editReport.formData.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && editReport.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
@@ -160,7 +161,6 @@
             </div>
             <input class="form-control" title='Brand' type=" text" title="Vehicle Brand" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
             <input class="form-control" title='Model' type=" text" title="Vehicle Model" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
-            <input class="form-control" title='Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
               <button type="submit" class="btn btn-md btn-rounded btn-elegant px-3" ng-click="editReport.addVehicle(addPlateNumber, editReport.formData.vehicle_platenumber.$valid, addBrand, editReport.formData.vehicle_brand.$valid, addVehicleType, editReport.formData.vehicle_involved_type.$valid, addModel, editReport.formData.vehicle_model.$valid, addDriver, editReport.formData.vehicle_driver.$valid)" style="float: right;">SAVE</button>
             </form>
         </div>
