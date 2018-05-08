@@ -1457,8 +1457,8 @@ module.exports = function(router) {
                           [
                               {//$first,$sum,$push -->$group
                                   "$group":{
-                                      "_id":"$vehicle_type",//expression what to count
-                                      "vehicle_type":{"$first": "$vehicle_type"},//first level
+                                      "_id":"$vehicle_involve_type",//expression what to count
+                                      "vehicle_type":{"$first": "$vehicle_involve_type"},//first level
                                       "count":{"$sum": 1}//counts what is in the expression
                                   }
                               },
@@ -1466,7 +1466,7 @@ module.exports = function(router) {
                                       "_id":"$id",//don't remove
                                       "counts":{
                                           "$push":{//$what to display
-                                              "vehicle_type":"$vehicle_type",
+                                              "vehicle_type":"$vehicle_involve_type",
                                               "number":"$count"
                                           }
                                       }
