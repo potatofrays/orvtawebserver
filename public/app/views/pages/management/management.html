@@ -17,9 +17,9 @@
           </div>
           <button title='Search Police User' class="btn btn-info mb-1 search btn-red btn-sm px-2" title='Search Police User' ng-click="management.search(searchKeyword, number);">COUNT <i class="fa fa-check ml-1"></i></button>
           <!--Clear-->
-          <button class="btn btn-info mb-1 btn-grey btn-sm px-2" ng-click="management.clear();" title='Clear'>Clear <i class="fa fa-check ml-1"></i></button>
+          <button class="btn btn-info mb-1 btn-rounded btn-grey btn-sm px-2 " ng-click="management.clear();" title='Clear'>Clear <i class="fa fa-check ml-1"></i></button>
           <!--Police registration Modal Button-->
-          <button type="button" title='Add New Police User' class="btn btn-elegant btn-sm px-2" data-toggle="modal" title='Add Police User' data-target="#modalAddPolice" style="float: right;">POLICE REGISTRATION</button>
+          <button type="button" title='Add New Police User' class="btn btn-elegant btn-rounded btn-sm px-2" data-toggle="modal" title='Add Police User' data-target="#modalAddPolice" style="float: right;">POLICE REGISTRATION</button>
         </div>
     <!--Modal for Police Registration-->
     <div ng-controller="managementCtrl as register" class="modal fade big" id="modalAddPolice" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -178,7 +178,7 @@
                        <option ng-repeat="station in dataManagement.stations" value="{{station.station_municipality}}">{{station.station_municipality}}</option>
                      </select>
                    </div>
-      
+
                     <select name="police_rank" ng-model="register.regData.police_rank"  class="browser-default form-control col-lg">
                       <option value="" disabled selected>Police Rank</option>
                       <option value="PO1">PO1</option>
@@ -200,7 +200,7 @@
                  <div class="col-lg-12 text-left">
                      <div id="success"></div>
                        <!-- Login Button -->
-                       <button type="submit" class="btn btn-md btn-elegant" style="float: right;">REGISTER POLICE</button>
+                       <button type="submit" class="btn btn-md btn-elegant  btn-rounded" style="float: right;">REGISTER POLICE</button>
                  </div>
             </form>
           </div>

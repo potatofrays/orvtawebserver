@@ -50,8 +50,8 @@
             <input type="text" ng-model="searchKeyword" id="formSearch" class="form-control">
             <label for="formSearch">SEARCH</label>
           </div>
-           <button class="btn btn-info mb-1 btn-red btn-sm px-2" ng-click="dataManagement.search(searchKeyword, number);" title='Search Police Reports'>COUNT <i class="fa fa-check ml-1"></i></button>
-          <button class="btn btn-info mb-1 btn-grey btn-sm px-2" ng-click="dataManagement.clear();" title='Clear'>Clear <i class="fa fa-check ml-1"></i></button>
+           <button class="btn btn-info mb-1 btn-red  btn-rounded btn-sm px-2" ng-click="dataManagement.search(searchKeyword, number);" title='Search Police Reports'>COUNT <i class="fa fa-check ml-1"></i></button>
+          <button class="btn btn-info mb-1 btn-grey  btn-rounded btn-sm px-2" ng-click="dataManagement.clear();" title='Clear'>Clear <i class="fa fa-check ml-1"></i></button>
           <a href="/addReport">
          <button type="button" ng-show="dataManagement.createReportBtn" title='Add Walk In Rport' class="btn btn-elegant btn-sm px-2"  style="float: right;">CREATE REPORT </i></button></a>
         </div>
@@ -100,7 +100,7 @@
             </div>
           <form name="dataForm" ng-submit="dataManagement.violationsReg(violationData, dataForm.$valid);" novalidate>
             <input textclass="form-control col-lg tdtd "  name="violation_committed" ng-model="dataManagement.violationData.violation_committed">
-            <button type="submit" data-toggle="tooltip" title='Hooray!'class="btn btn-elegant btn-sm">SAVE</button>
+            <button type="submit" data-toggle="tooltip" title='Hooray!'class="btn btn-elegant btn-sm  btn-rounded">SAVE</button>
           </form>
           </div><br>
           <div class="vio container-fluid">
@@ -141,7 +141,7 @@
             </div>
             <form name="dataForm" ng-submit="dataManagement.vehicleReg(vehicleData, dataForm.$valid);" novalidate>
               <input textclass="form-control col-lg tdtd "  name="vehicle_type" ng-model="dataManagement.vehicleData.vehicle_type">
-              <button type="submit" data-toggle="tooltip" title='ADD NEW VEHICLE TYPE'class="btn btn-elegant btn-sm">SAVE</button>
+              <button type="submit" data-toggle="tooltip" title='ADD NEW VEHICLE TYPE'class="btn btn-elegant btn-sm  btn-rounded">SAVE</button>
             </form>
           </div><br>
             <div class="vio container-fluid">
@@ -182,7 +182,7 @@
             </div>
             <form name="dataForm" ng-submit="dataManagement.stationReg(stationData, dataForm.$valid);" novalidate>
               <input textclass="form-control col-lg tdtd "  name="station_municipality" ng-model="dataManagement.stationData.station_municipality">
-              <button type="submit" data-toggle="tooltip" title='Add Station Municipality'class="btn btn-elegant btn-sm">SAVE</button>
+              <button type="submit" data-toggle="tooltip" title='Add Station Municipality'class="btn btn-elegant btn-rounded btn-sm">SAVE</button>
             </form>
           </div><br>
             <div class="vio container-fluid">
