@@ -43,6 +43,7 @@ module.exports = function(router){
 			addReport.accident_type = req.body.accident_type;
 			addReport.accident_cause = req.body.accident_cause;
 			addReport.police_username = req.body.police_username;
+			addReport.police_reported_at = req.body.police_reported_at;
 			addReport.save(function(err, report){
 				if(err){
 					res.json(500,err);
