@@ -124,6 +124,21 @@ angular.module('reportManagementController', ['reportServices'])
             $scope.showIdVehicle = data.data.report._id;
         }
     });
+    //get all data and display to form
+    Report.getEditedReports($routeParams.id).then(function(data){
+        if(data.data.success){
+            $scope.editCommittedAt = data.data.report.committed_at;
+            $scope.editAccidentType = data.data.report.accident_type;
+            $scope.editAccidentCause = data.data.report.accident_cause;
+            $scope.editThoroughfare = data.data.report.address_thoroughfare;
+            $scope.editMunicipality = data.data.report.address_municipality;
+            $scope.editProvince = data.data.report.address_province;
+            $scope.editCredibility = data.data.report.report_credibility;
+            $scope.showId = data.data.report._id;
+            $scope.showIdPeople = data.data.report._id;
+            $scope.showIdVehicle = data.data.report._id;
+        }
+    });
     //function for button Save Changes
     app.updateReport = function(valid, editCommittedAt, editAccidentType, editDate, editAccidentCause, editThoroughfare, editMunicipality, editProvince, editCredibility){
         if(valid){
