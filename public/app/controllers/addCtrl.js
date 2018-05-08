@@ -106,6 +106,7 @@ angular.module('addCtrl', ['geolocation', 'gservice'])
             address_province: $scope.formData.address_province,
             location_coordinates: [$scope.formData.longitude, $scope.formData.latitude],
             committed_at: $scope.formData.committed_at,
+            police_reported_at: $scope.formData.police_reported_at,
             police_username: document.getElementById('Username').value,
             onDuty: document.getElementById('onDuty').value
 

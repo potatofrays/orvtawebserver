@@ -75,7 +75,6 @@ var UserSchema = new Schema({
   	police_contact: { type: String, required: true, validate: contactValidator },
   	police_rank: { type: String, required: true},
     police_address: { type: String},
-    active: { type: Boolean, required: true, default: false },
     temporarytoken: { type: String, required: true},
     resettoken: { type: String, required: false },
     police_permission: { type: String, required: true},
