@@ -51,7 +51,7 @@ var policeReport = new Schema({
 	report_credibility:{type: String},
 	onDuty: {type: String},
 	people_involved_id: [{ type: Schema.Types.ObjectId, ref: 'People_Involved' }],
-	vehicle_id: [{ type: Schema.Types.ObjectId, ref: 'Vehicle' }]
+	vehicle_id: [{ type: Schema.Types.ObjectId, ref: 'Vehicle_Involved' }]
     //image_id
     //audio_id
 });
