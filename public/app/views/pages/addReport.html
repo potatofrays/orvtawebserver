@@ -97,7 +97,7 @@
            </div>
            <div class="md-form">
               <p style="color: grey; font-size: 12px;">Date and Time Reported:</p>
-               <input datetime-picker hour="12" minute='59' class="form-control tdtd" title="Date and Time Reported" placeholder="Click to Enter Date/Time Reported" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.police_reported_at" style="padding-left: 10px;" required>
+               <input datetime-picker class="form-control tdtd" title="Date and Time Reported" placeholder="Click to Enter Date/Time Reported" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.police_reported_at" style="padding-left: 10px;" required>
            </div>
           <div>
           <button type="submit" class="btn btn-rounded btn-elegant btn-sm pc-2" ng-click="createReport()" ng-disabled="addForm.$invalid">Click to save</button>
