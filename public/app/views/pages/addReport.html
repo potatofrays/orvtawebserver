@@ -2,7 +2,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRXGkNUJ7ibYPMtrqm3fEUilG9jh0vOhE"></script>
 <style>
 #map{
-  height: 900px;
+  height: 1035px;
   width: 700px;
   float: right;
   overflow:hidden;
@@ -10,7 +10,7 @@
 }
 .containerForm{
   float: left;
-  height: 900px;
+  height: 1035px;
   padding-left: 29px;
   padding-right: 29px;
   width:450px;
@@ -60,15 +60,6 @@
                <p style="color: grey; font-size: 12px;">Latitude:</p>
              <input type=" text" class="form-control" id="longitude"  ng-model="formData.longitude" style="padding-left: 10px;" readonly>
          </div>
-
-         <div class="md-form">
-            <p style="color: grey; font-size: 12px;">Date and Time Transpired:</p>
-             <input datetime-picker hour="12" minute='59' class="form-control tdtd" title="Date and Time of Accident" placeholder="Click to Enter Date/Time" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.committed_at" style="padding-left: 10px;" required>
-         </div>
-         <div class="md-form">
-            <p style="color: grey; font-size: 12px;">Date and Time Reported:</p>
-             <input datetime-picker hour="12" minute='59' class="form-control tdtd" title="Date and Time Reported" placeholder="Click to Enter Date/Time Reported" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.police_reported_at" style="padding-left: 10px;" required>
-         </div>
           <input list="accidentTypes" name="accidentType" title='Accident Type' placeholder="Accident Type" title='Accident Type' ng-model="formData.cause" style="padding-left: 20px;" class="form-control tdtd">
            <datalist id="accidentTypes">
              <option value="Head-On Collision">Head-On Collision</option>
@@ -100,6 +91,14 @@
    					<option value="Tire Blowouts">Tire Blowouts</option>
    					<option value="Unsafe Lane Changes">Unsafe Lane Changes</option>
            </datalist>
+           <div class="md-form">
+              <p style="color: grey; font-size: 12px;">Date and Time Transpired:</p>
+               <input datetime-picker hour="12" minute='59' class="form-control tdtd" title="Date and Time of Accident" placeholder="Click to Enter Date/Time of Accident" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.committed_at" style="padding-left: 10px;" required>
+           </div>
+           <div class="md-form">
+              <p style="color: grey; font-size: 12px;">Date and Time Reported:</p>
+               <input datetime-picker hour="12" minute='59' class="form-control tdtd" title="Date and Time Reported" placeholder="Click to Enter Date/Time Reported" date-format="yyyy-MM-dd HH:mm:ss" ng-model="formData.police_reported_at" style="padding-left: 10px;" required>
+           </div>
           <div>
           <button type="submit" class="btn btn-rounded btn-elegant btn-sm pc-2" ng-click="createReport()" ng-disabled="addForm.$invalid">Click to save</button>
           <a ng-show="add.clickView"  onclick="javascript:window.location.reload()" title='Add New Report' class="btn-floating btn-sm btn-grey"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
