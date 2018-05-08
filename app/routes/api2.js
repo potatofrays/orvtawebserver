@@ -13,7 +13,7 @@ module.exports = function(app) {
    app.get('/police_reports', function(req, res){
 
        // Uses Mongoose schema to run the search (empty conditions)
-       var query = models.Police_Report.find({$and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}]});
+       var query = models.Police_Report.find({$and: [{report_credibility: { $ne: 'Fraud'}}, {report_credibility: { $ne: 'Pending'}}, {report_credibility: { $ne: 'Already Reported'}}]});
        query.exec(function(err, police_reports){
            if(err)
                res.send(err);
@@ -106,27 +106,6 @@ module.exports = function(app) {
                maxDistance: distance * 1609.34, spherical: true});
 
        }
-/*
-       // ...include filter by Favorite Language
-       if(police_username){
-           query = query.where('police_username').equals(police_username);
-       }
-       // ...include filter by Favorite Language
-       if(accident_type){
-           query = query.where('accident_type').equals(accident_type);
-       }
-       if(accident_cause){
-           query = query.where('accident_cause').equals(accident_cause);
-       }
-       // ...include filter by Favorite Language
-       if(vehicleType){
-           query = query.where('vehicleType').equals(vehicleType);
-       }
-       // ...include filter by Favorite Language
-       if(plateNum){
-           query = query.where('plateNum').equals(plateNum);
-       }
-   */
        // ...include filter for HTML5 Verified Locations
        if(reqVerified){
            query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
