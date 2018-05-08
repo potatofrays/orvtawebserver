@@ -816,7 +816,7 @@ module.exports = function(router) {
     });
     router.put('/editReport2', function(req,res){
       if(req.body.accident_type || req.body.accident_cause || req.body.address_thoroughfare
-      || req.body.address_municipality || req.body.address_province){
+      || req.body.address_municipality || req.body.address_province || req.body){
       models.Police_Report.findById(req.body._id, function(err, report){
         if (err) {
           res.json(500, err);
@@ -849,7 +849,7 @@ module.exports = function(router) {
     });
     router.put('/editReport', function(req,res){
       if(req.body.accident_type || req.body.accident_cause || req.body.address_thoroughfare
-      || req.body.address_municipality || req.body.address_province || req.body.report_credibility || req.body.police_username || req.body.onDuty){
+      || req.body.address_municipality || req.body.address_province || req.body.report_credibility || req.body.police_username || req.body.onDuty || req.body.police_reported_at){
       models.Police_Report.findById(req.body._id, function(err, report){
         if (err) {
           res.json(500, err);
@@ -863,6 +863,7 @@ module.exports = function(router) {
           report.report_credibility = req.body.report_credibility;
           report.police_username = req.body.police_username;
           report.onDuty = req.body.onDuty;
+          report.police_reported_at = req.body.police_reported_at;
           report.save(function(err){
             if (err) {
                  res.json(500, err);
