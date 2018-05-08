@@ -972,5 +972,52 @@ angular.module('reportManagementController', ['reportServices'])
           }, 2000);
         }
       }
+      Report.getStations($routeParams.id).then(function(data) {
+          // Check if the people involve's _id was found in database
+          if (data.data.success) {
+              $scope.addStation = data.data.station.station_municipality; // Display name in scope
+              $scope.showId = data.data.station._id; // Get report's _id for update functions
+          } else {
+              app.errorMsg = data.data.message; // Set error message
+              $scope.alert = 'alert alert-danger'; // Set class for message
+          }
+      });
+
+      app.updateStation = function(valid, addStation){
+         if(valid){
+            var stationObject = {};
+            stationObject._id = $scope.showId;
+            stationObject.station_municipality = $scope.addStation;
+
+           Report.stationChanges(stationObject).then(function(data){
+             if (data.data.success) {
+               $scope.alert = 'alert alert-success'; // Set class for message
+               app.successMsg = data.data.message; // Set success message
+               // Function: After two seconds, clear and re-enable
+               $timeout(function() {
+                   app.successMsg = false; // Clear success message
+                   app.disabled = false; // Enable form for editing
+               }, 2000);
+             } else {
+                 $scope.alert = 'alert alert-danger'; // Set class for message
+                 app.errorMsg = data.data.message; // Clear any error messages
+
+                 // Function: After two seconds, clear and re-enable
+                 $timeout(function() {
+                     app.errorMsg = false; // Clear success message
+                     app.disabled = false; // Enable form for editing
+                 }, 2000);
+             }
+           });
+         } else {
+           $scope.alert = 'alert alert-danger'; // Set class for message
+           app.errorMsg = 'Please ensure form is filled out properly'; // Set error message
+           app.disabled = false; // Enable form for editing
+           $timeout(function() {
+               app.errorMsg = false; // Clear success message
+               app.disabled = false; // Enable form for editing
+           }, 2000);
+         }
+       }
 
 });

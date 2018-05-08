@@ -1225,7 +1225,7 @@ module.exports = function(router) {
           if (!permission) {
               res.json('No user found');
           }else{
-              if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
                       models.Police_Report.aggregate(
                           [
                               {//$first,$sum,$push -->$group
@@ -1297,7 +1297,7 @@ module.exports = function(router) {
           if (!permission) {
               res.json('No user found');
           }else{
-              if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
 
                   models.Police_Report.aggregate(
                                   [
@@ -1375,7 +1375,7 @@ module.exports = function(router) {
           if (!permission) {
               res.json('No user found');
           }else{
-              if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
                       models.Police_Report.aggregate(
                           [
                               {//$first,$sum,$push -->$group
@@ -1452,7 +1452,7 @@ module.exports = function(router) {
           if (!permission) {
               res.json('No user found');
           }else{
-              if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
                       models.Vehicle.aggregate(
                           [
                               {//$first,$sum,$push -->$group
@@ -1528,7 +1528,7 @@ module.exports = function(router) {
           if (!permission) {
               res.json('No user found');
           }else{
-              if(permission.police_permission === "main" && permission.police_station === req.decoded.police_station){
+              if(permission.police_permission === "main" && permission.police_station === "Lingayen"){
                       models.People_Involved.aggregate(
                           [
                               {//$first,$sum,$push -->$group

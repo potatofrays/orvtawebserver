@@ -223,5 +223,18 @@ module.exports = function(router){
 		 	})
 		 });
 
+	 router.put('/reported/:id', function(req, res){
+		 models.Police_Report.findById(req.params.id, function(err,reported){
+			 reported.report_credibility = "Already Reported";
+			 reported.police_username = req.body.police_username;
+			 reported.save(function(err, reported){
+				 if (err) {
+					 res.json(500,err);
+				 }
+				 res.json({success: true, reported: reported.id});
+			 });
+		 });
+	 });
+
 return router;
 }

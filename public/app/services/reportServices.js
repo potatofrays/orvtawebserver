@@ -37,7 +37,6 @@ angular.module('reportServices', [])
     reportFactory.getStations = function(id) {
         return $http.get('/api/editStation/' + id);
     };
-
     // Edit a vehicle
     reportFactory.stationChanges = function(id) {
         return $http.put('/api/editStation', id);
