@@ -195,14 +195,14 @@
                </select>
              </div>
                <input class="form-control" title='Driver' type=" text" title="Vehicle Driver" ng-model="addDriver" placeholder=" Driver" style="padding-left: 10px;">
-              <div class="md-form">
-              <input class="form-control" type=" text" name="vehicle_platenumber" title="Vehicle Plate Number" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlateNumber" placeholder=" Plate Number" style="padding-left: 10px;">
-              <ul ng-show="(!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.pattern) || (!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.minlength) || (!editForm.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
-                 <li class="decor">Only upper case letters and numbers</li>
-                 <li class="decor">Must not contain special characters</li>
-                 <li class="decor">Must be at least 7 characters but no more than 8</li>
+               <div class="md-form">
+                <input class="form-control" name="vehicle_platenumber" type=" text" title="Vehicle Plate Number" ng-pattern="/^[A-Z 0-9]*$/" ng-minlength="7" ng-maxlength="8" ng-model="addPlatenumber" placeholder=" Plate Number" style="padding-left: 10px;">
+                <ul ng-show="(!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.pattern) || (!editForm.formData.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.minlength) || (!editVehicle.vehicle_platenumber.$pristine && editForm.formData.vehicle_platenumber.$error.maxlength)" class="help-block" style="color: red; font-size: 13px;">
+                   <li class="decor">Only upper case letters and numbers</li>
+                   <li class="decor">Must not contain special characters</li>
+                   <li class="decor">Must be at least 7 characters but no more than 8</li>
                </ul>
-              </div>
+             </div>
               <input class="form-control" title='Brand' type=" text" title="Vehicle Brand" ng-model="addBrand" placeholder=" Brand" style="padding-left: 10px;">
               <input class="form-control" title='Model' type=" text" title="Vehicle Model" ng-model="addModel" placeholder=" Model" style="padding-left: 10px;">
               <button type="submit" class="btn btn-md btn-rounded btn-elegant" ng-disabled="editForm.formData.$invalid" ng-click="addVehicle()" style="float: right;">Save</button>
