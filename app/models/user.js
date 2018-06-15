@@ -80,7 +80,7 @@ var UserSchema = new Schema({
     police_permission: { type: String, required: true},
     police_createdAt: {type: Date, default: Date.now},
     police_updatedAt: {type: Date, default: Date.now},
-    active: { type: String}
+    active: { type: String, default: 'active'}
 });
 
 // Middleware to ensure password is encrypted before saving user to database
