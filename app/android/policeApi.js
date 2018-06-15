@@ -23,7 +23,9 @@ module.exports = function(router){
 					        } else {
 										Police_User.findOne({police_username: req.params.username}, function(err, username){
 												if (username.police_permission !== 'user'){
-													 res.json({ success: false, message: 'You must be a police user to log in' }); // Password was not provided
+													 res.json({ success: false, message: 'You must be a police user to log in' });
+												} else if (username.active !== 'active'){
+													 res.json({ success: false, message: 'Your police status is inactive' });
 												} else {
 													return res.json({ success: true, username: username.police_username, police_id: username.id, police_station: username.police_station}); // Return token in JSON object to controller
 												}

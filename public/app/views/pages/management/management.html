@@ -233,6 +233,7 @@
       <th class="thth"><b>Gender</b></th>
       <th class="thth"><b>Contact</b></th>
       <th class="thth"><b>Address</b></th>
+      <th class="thth"><b>Police Status</b></th>
       <th class="thth"><b>Station</b></th>
       <th class="thth"><b>Permission</b></th>
       <th class="thth"><b>Created</b></th>
@@ -247,6 +248,7 @@
       <td class="tdtd">{{ person.police_gender }}</td>
       <td class="tdtd">{{ person.police_contact }}</td>
       <td class="tdtd">{{ person.police_address}}</td>
+      <td class="tdtd">{{ person.active}}</td>
       <td class="tdtd" style="color: blue;">{{ person.police_station}}</td>
       <td class="tdtd" style="color: red;">{{ person.police_permission }}</td>
       <td class="tdtd">{{ person.police_createdAt | date:'MMM d y h: mma' }}</td>

@@ -31,6 +31,7 @@ module.exports = function(router) {
         user.police_gender = req.body.police_gender; // Save gender from request to User object
         user.police_rank = req.body.police_rank; // Save rank from request to User object
         user.police_address = req.body.police_address;
+        user.active = req.body.active;
 
         user.temporarytoken = jwt.sign({ police_username: user.police_username, police_email: user.police_email }, secret, { expiresIn: '24h' }); // Create a token for activating account through e-mail
 
@@ -143,7 +144,7 @@ module.exports = function(router) {
     // Route for user logins
     router.post('/authenticate', function(req, res) {
         var loginUser = (req.body.police_username); // Ensure username is checked in lowercase against database
-        police_user.findOne({ police_username: loginUser }).select('police_name police_email police_username police_password police_station police_permission').exec(function(err, user) {
+        police_user.findOne({ police_username: loginUser }).select('police_name police_email police_username police_password police_station police_permission active').exec(function(err, user) {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
@@ -180,6 +181,8 @@ module.exports = function(router) {
                               res.json({ success: false, message: 'You must be an admin to login.' }); // Password does not match password in database
                           } else if (user.police_permission === 'main' && user.police_station !== 'Lingayen'){
                                 res.json({ success: false, message: 'Your station must be Lingayen.' }); // Password does not match password in database
+                          } else if ( user.active === 'inactive'){
+                            res.json({ success: false, message: "Your police status is inactive"})
                           } else {
                             var token = jwt.sign({ police_name: user.police_name, police_username: user.police_username, police_email: user.police_email, police_station: user.police_station, police_permission: user.police_permission  }, secret, { expiresIn: '24h' }); // Logged in: Give user token
                             res.json({ success: true, message: 'User authenticated', token: token }); // Return token in JSON object to controller
@@ -628,6 +631,7 @@ module.exports = function(router) {
                        police.police_gender = req.body.police_gender;
                        police.police_rank = req.body.police_rank;
                        police.police_permission = req.body.police_permission;
+                       police.active = req.body.active;
                        police.save(function(err){
                          if (err) {
                            res.json(500, err);
@@ -646,6 +650,7 @@ module.exports = function(router) {
                      police.police_gender = req.body.police_gender;
                      police.police_rank = req.body.police_rank;
                      police.police_permission = req.body.police_permission;
+                     police.active = req.body.active;
                      police.save(function(err){
                        if (err) {
                          res.json(500, err);
@@ -668,6 +673,7 @@ module.exports = function(router) {
                        police.police_gender = req.body.police_gender;
                        police.police_rank = req.body.police_rank;
                        police.police_permission = req.body.police_permission;
+                       police.active = req.body.active;
                        police.save(function(err){
                          if (err) {
                            res.json(500, err);
@@ -686,6 +692,7 @@ module.exports = function(router) {
                     police.police_gender = req.body.police_gender;
                     police.police_rank = req.body.police_rank;
                     police.police_permission = req.body.police_permission;
+                    police.active = req.body.active;
                     police.save(function(err){
                       if (err) {
                         res.json(500, err);
@@ -705,6 +712,7 @@ module.exports = function(router) {
                      police.police_gender = req.body.police_gender;
                      police.police_rank = req.body.police_rank;
                      police.police_permission = req.body.police_permission;
+                     police.active = req.body.active;
                      police.save(function(err){
                        if (err) {
                          res.json(500, err);

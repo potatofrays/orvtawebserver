@@ -79,7 +79,8 @@ var UserSchema = new Schema({
     resettoken: { type: String, required: false },
     police_permission: { type: String, required: true},
     police_createdAt: {type: Date, default: Date.now},
-    police_updatedAt: {type: Date, default: Date.now}
+    police_updatedAt: {type: Date, default: Date.now},
+    active: { type: String}
 });
 
 // Middleware to ensure password is encrypted before saving user to database

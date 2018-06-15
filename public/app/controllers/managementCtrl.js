@@ -212,10 +212,11 @@ angular.module('managementController', [])
           $scope.editRank = data.data.police.police_rank;
           $scope.editStation = data.data.police.police_station;
           $scope.editPermission = data.data.police.police_permission;
+          $scope.editStatus = data.data.police.active;
           $scope.showId = data.data.police._id;
         }
       });
-       app.updatePolice = function(valid, editName, editEmail, editContact, editUsername,editAddress, editGender, editRank, editStation, editPermission){
+       app.updatePolice = function(valid, editName, editEmail, editContact, editUsername,editAddress, editGender, editRank, editStation, editPermission, editStatus){
           if(valid){
              var userObject = {};
              userObject._id = $scope.showId;
@@ -228,6 +229,7 @@ angular.module('managementController', [])
              userObject.police_rank = $scope.editRank;
              userObject.police_station = document.getElementById('stationChoices').value;
              userObject.police_permission =$scope.editPermission;
+             userObject.active = $scope.editStatus;
 
 
             User.policeChanges(userObject).then(function(data){

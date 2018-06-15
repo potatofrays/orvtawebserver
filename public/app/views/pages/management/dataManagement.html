@@ -99,7 +99,7 @@
               <div class="alert alert-danger">{{ dataManagement.errorMsg }}</div>
             </div>
           <form name="dataForm" ng-submit="dataManagement.violationsReg(violationData, dataForm.$valid);" novalidate>
-            <input textclass="form-control col-lg tdtd "  name="violation_committed" ng-model="dataManagement.violationData.violation_committed">
+            <input textclass="form-control col-lg tdtd " placeholder="Add Violation" name="violation_committed" ng-model="dataManagement.violationData.violation_committed">
             <button type="submit" data-toggle="tooltip" title='Hooray!'class="btn btn-elegant btn-sm  btn-rounded">SAVE</button>
           </form>
           </div><br>
@@ -140,7 +140,7 @@
               <div class="alert alert-danger">{{ dataManagement.errorMsg }}</div>
             </div>
             <form name="dataForm" ng-submit="dataManagement.vehicleReg(vehicleData, dataForm.$valid);" novalidate>
-              <input textclass="form-control col-lg tdtd "  name="vehicle_type" ng-model="dataManagement.vehicleData.vehicle_type">
+              <input textclass="form-control col-lg tdtd " placeholder="Add Vehicle Type" name="vehicle_type" ng-model="dataManagement.vehicleData.vehicle_type">
               <button type="submit" data-toggle="tooltip" title='ADD NEW VEHICLE TYPE'class="btn btn-elegant btn-sm  btn-rounded">SAVE</button>
             </form>
           </div><br>
@@ -181,7 +181,7 @@
               <div class="alert alert-danger">{{ dataManagement.errorMsg }}</div>
             </div>
             <form name="dataForm" ng-submit="dataManagement.stationReg(stationData, dataForm.$valid);" novalidate>
-              <input textclass="form-control col-lg tdtd "  name="station_municipality" ng-model="dataManagement.stationData.station_municipality">
+              <input textclass="form-control col-lg tdtd " placeholder="Add Station" name="station_municipality" ng-model="dataManagement.stationData.station_municipality">
               <button type="submit" data-toggle="tooltip" title='Add Station Municipality'class="btn btn-elegant btn-rounded btn-sm">SAVE</button>
             </form>
           </div><br>
